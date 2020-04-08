@@ -1,0 +1,17 @@
+<!--miniprogram/pages/home/index.wxml-->
+<view class="home" catchtouchmove="{{true}}">
+
+  <view class="search-wrapper">
+    <input type="text" placeholder="请输入你想查询的商品名称" bindinput="bindKey" value="{{keyword}}" bindconfirm="getList"></input>
+    <view class="search">
+      <image src="../../images/icons/search.png" bindtap="getList"></image>
+    </view>
+    
+  </view>
+
+  <scroll-view class="goods-wrapper" scroll-y="true" catchtouchmove="{{true}}">
+    <goods-item cus-class="item" wx:for="{{list}}" wx:for-item="goods" wx:for-index="index" goods="{{goods}}" toCart="{{true}}"></goods-item>
+    <empty-wrapper wx:if="{{list.length == 0}}"></empty-wrapper>
+  </scroll-view>
+
+</view>

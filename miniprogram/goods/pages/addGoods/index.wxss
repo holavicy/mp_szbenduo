@@ -1,0 +1,97 @@
+/* miniprogram/goods/pages/addGoods/index.wxss */
+.add-goods{
+  padding: 60rpx 40rpx;
+}
+.form-item{
+  min-height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #E5E5E5;
+}
+
+.form-item.add-pictures{
+  align-items: flex-start;
+}
+
+.form-item .form-title{
+  width: 190rpx;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  color: #222222;
+}
+
+.form-item .form-content{
+  width: 180rpx;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-item .form-content .more{
+  width: 20rpx;
+  height: 40rpx;
+}
+
+.form-item .form-content input{
+  border: none;
+}
+
+.btns{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60rpx;
+}
+
+.btns .button{
+  width: 300rpx;
+  font-size: 400;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 12rpx;
+}
+
+.btns .button.reset{
+  border: 1rpx solid #222222;
+}
+
+.btns .button.submit{
+  background: #3d6034;
+  color: #ffffff;
+}
+
+.picture{
+  width: 140rpx;
+  height: 140rpx;
+  border: 1rpx solid #E5E5E5;
+  border-radius: 12rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.picture.add{
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.picture-title{
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+
+.pictures-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.picture image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}

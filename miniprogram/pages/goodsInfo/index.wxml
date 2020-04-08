@@ -1,0 +1,31 @@
+<!--miniprogram/pages/goodsInfo/index.wxml-->
+<view class="goods-info">
+  <swiper class="goods-images" indicator-dots="true"
+          autoplay="true">
+    <block wx:for="{{goodsInfo.imgList}}" wx:key="*this">
+      <swiper-item>
+        <image class="swiper-item" src="{{item}}" bindtap="preview" data-index="{{index}}"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="info">
+    <view class="goods-price">售价  ¥<text class="price">{{goodsInfo.price}}</text>/{{goodsInfo.unit}}</view>
+    <view class="goods-name">{{goodsInfo.name}}</view>
+    <view class="goods-des">{{goodsInfo.descript}}</view>
+  </view>
+
+  <view class="bottom" wx:if="{{dealer_id}}">
+   <view class="num-change">
+      <image src="../../images/icons/min.png" 
+            data-id="{{goodsInfo._id}}" data-num="{{goodsInfo.num}}" data-stock="{{goodsInfo.stock}}" data-type="1" data-gid = "{{goodsInfo.goods_id}}"
+            catchtap="updateNum"></image>
+      <input type="number" value="{{goodsInfo.num}}" bindinput="setNum"></input>
+      <image src="../../images/icons/add.png" 
+            data-id="{{goodsInfo._id}}" data-num="{{goodsInfo.num}}" data-stock="{{goodsInfo.stock}}" data-type="2" data-gid = "{{goodsInfo.goods_id}}"
+            catchtap="updateNum"></image>
+    </view>
+    <view class="button" bindtap="addToCart">加入购物车</view>
+    <!-- <view class="button">立即购买</view> -->
+  </view>
+  
+</view>

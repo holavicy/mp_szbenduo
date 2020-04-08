@@ -1,0 +1,28 @@
+<!--miniprogram/pages/home/index.wxml-->
+<view class="home" catchtouchmove="{{true}}">
+
+  <view class="search-wrapper">
+    <input type="text" placeholder="请输入你想查询的商品名称" bindinput="bindKey" bindconfirm="toSearch"></input>
+    <view class="search">
+      <image src="../../images/icons/search.png" bindtap="toSearch"></image>
+    </view>
+    
+  </view>
+
+  <view class="goods-wrapper" wx:if="{{list.length>0}}">
+    <view class="left-nav">
+      <view wx:for="{{list}}" wx:key="index" class="nav-item {{selectedIndex == index?'active':''}}" data-index="{{index}}"     bindtap="setShowList">{{item.name}}</view>
+    </view>
+
+    <scroll-view class="right-content" scroll-y="true" catchtouchmove="{{true}}">
+      <goods-item cus-class="item" wx:for="{{showList}}" wx:for-item="goods" wx:for-index="i" wx:key="i" goods="{{goods}}" toCart="{{true}}"></goods-item>
+      <empty-wrapper wx:if="{{showList.length == 0}}"></empty-wrapper>
+    </scroll-view>
+
+  </view>
+
+  <view class="goods-wrapper" wx:else>
+    <empty-wrapper class="empty-wrapper"></empty-wrapper>
+  </view>
+
+</view>

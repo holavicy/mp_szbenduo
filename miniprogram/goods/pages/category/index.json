@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "empty-wrapper": "../../components/empty/index"
+  },
+  "navigationBarTitleText":"分类列表"
+}

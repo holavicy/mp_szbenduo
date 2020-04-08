@@ -1,0 +1,86 @@
+/* miniprogram/goods/pages/category/index.wxss */
+.category{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x:hidden;
+}
+
+.category-list{
+  height: 200rpx;
+  flex-grow: 1;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+}
+
+.radio-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #E5E5E5;
+  margin: 10rpx 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #222222;
+  height: 100rpx;
+}
+
+.bottom{
+  height: 100rpx;
+  flex-direction: row;
+  flex-shrink: 0;
+  flex-grow: 0;
+  box-shadow: #E5E5E5 0 0 10rpx;
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+.bottom .add-category{
+  display: flex;
+  align-items: center;
+  width: 580rpx;
+  line-height: 100rpx;
+  flex-grow: 1;
+}
+.bottom .add-category input{
+  font-size: 28rpx;
+}
+
+.bottom .add-category .button{
+  width: 170rpx;
+  background: #3d6034;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  color: #ffffff;
+  text-align: center;
+  border-right: 1rpx solid #ffffff;
+}
+
+.bottom .delete-category{
+  width: 170rpx;
+  background: #3d6034;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  color: #ffffff;
+  text-align: center;
+}
+
+.add-category input{
+
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 100rpx;
+  flex-grow: 1;
+  padding: 0 20rpx;
+}
+
+.add-category button{
+  width: 260rpx;
+  height: 80rpx;
+}
+
+.update-btn{
+  color: #EE9922;
+  border-bottom: 1rpx solid #EE9922;
+}

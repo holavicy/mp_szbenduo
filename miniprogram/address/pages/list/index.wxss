@@ -1,0 +1,83 @@
+/* miniprogram/pages/addressList/index.wxss */
+.address-list{
+  overflow-y:auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #E5E5E5;
+}
+
+.list-wrapper{
+  height: 200rpx;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 20rpx;
+}
+
+.address-item{
+  height: 150rpx;
+  margin-top: 20rpx;
+  background: #ffffff;
+  padding: 30rpx 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.info{
+  width: 100rpx;
+  flex-grow: 1;
+}
+
+.actions{
+  height: 40rpx;
+  flex: 0;
+}
+
+.info .address{
+  font-size: 28rpx;
+  color: #222222;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info .link-man{
+  font-size: 24rpx;
+  color: #888888;
+}
+
+.address-item .actions image{
+  display: block;
+  width: 20rpx;
+  height: 40rpx;
+}
+
+.bottom{
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 36rpx;
+  box-shadow: #E5E5E5 0 0 10rpx;
+}
+
+.bottom .button{
+  width: 50%;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.bottom .button.active{
+  background: #3d6034;
+  color: #ffffff;
+}
+
+.select image{
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 20rpx;
+}

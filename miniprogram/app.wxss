@@ -1,0 +1,7 @@
+/**app.wxss**/
+page{
+  background: #ffffff;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}

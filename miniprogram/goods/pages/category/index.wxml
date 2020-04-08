@@ -1,0 +1,35 @@
+<!--miniprogram/goods/pages/category/index.wxml-->
+<wxs module="foo">
+  var some_msg = "hello world";
+  var stringify = function(obj){
+    return JSON.stringify(obj)
+  }
+  module.exports = {
+    stringify : stringify,
+  }
+</wxs>
+<view class="category" catchtouchmove="true">
+  <scroll-view scroll-y="true" class="category-list" catchtouchmove="true">
+    <radio-group class="radio-group" bindchange="radioChange">
+      <view class="radio-item" wx:for-items="{{categoryList}}" wx:key="name">
+        <input class="text" type="text" maxlength="6" value="{{item.name}}" data-index="{{index}}"
+                bindconfirm="updateCategory" ></input>
+        <text class="update-btn" bindtap="updateCategory" data-index="{{index}}" wx:if="{{item.needUpdate}}">更新</text>
+        <radio class="radio"  value="{{foo.stringify(item)}}" checked="{{item._id == selectedId}}" color="#3d6034"></radio>
+      </view>
+        
+    </radio-group>
+    <empty-wrapper wx:if="{{categoryList.length == 0}}"></empty-wrapper>
+  </scroll-view>
+
+<view class="bottom">
+  <view class="add-category">
+    <input type="text" placeholder="最多输入6个字符" maxlength="6" value="{{categoryName}}" bindinput="bindKeyInput"></input>
+    <view class="button" bindtap="addCategory">新增分类</view>
+  </view>
+
+  <view class="delete-category" bindtap="deleteCategory" wx:if="{{type == 2}}">删除分类</view>
+</view>
+
+
+</view>

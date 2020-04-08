@@ -1,0 +1,58 @@
+/* miniprogram/goods/goodsList/index.wxss */
+@import '../../../pages/templates/goodsItem/index.wxss';
+
+.goods-list{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.goods-list .list-wrapper{
+  height: 200rpx;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.tab{
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.tab .tab-item{
+  width: 100rpx;
+  flex-grow: 1;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.tab .tab-item.active{
+  border-bottom: 4rpx solid #3d6034;
+  box-sizing: border-box;
+  transition: .2s;
+}
+
+.list{
+  height: 200rpx;
+  flex-grow: 1;
+  overflow-x: hidden;
+}
+
+.add-goods{
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  flex: 0;
+  background-color: #3d6034;
+  color: #ffffff;
+}
+
+.goods-item{
+  border-bottom: 1rpx solid #E5E5E5;
+  margin: 0 20rpx;
+}

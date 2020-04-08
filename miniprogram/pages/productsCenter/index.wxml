@@ -1,0 +1,2 @@
+<!--miniprogram/pages/productsCenter/index.wxml-->
+<navigator url="/pages/addGoods/index">新增商品</navigator>

@@ -1,0 +1,30 @@
+/* components/areaPicker/index.wxss */
+.top-action{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #E5E5E5;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.top-action .cancel{
+  color: #999999
+}
+
+.top-action .confirm{
+  color: #3d6034
+}
+
+.picker-view{
+  padding: 0 20rpx;
+}
+
+.picker-view-column{
+  font-size: 28rpx;
+  color: #222222;
+  line-height: 72rpx;
+  text-align: center;
+}

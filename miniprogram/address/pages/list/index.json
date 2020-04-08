@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "empty-wrapper": "../../components/empty/index"
+  }
+}

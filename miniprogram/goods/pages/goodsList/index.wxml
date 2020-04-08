@@ -1,0 +1,24 @@
+<!--miniprogram/goods/goodsList/index.wxml-->
+<import src="../../../pages/templates/goodsItem/index.wxml"/>
+
+
+<view class="goods-list">
+
+  <view class="list-wrapper">
+    <view class="tab">
+      <view class="tab-item {{currIndex == index?'active':''}}" wx:for="{{tabList}}" bindtap="setTab" data-index="{{index}}">{{item}}</view>
+    </view>
+    <scroll-view class="list" scroll-y="true" catchtouchmove="true">
+      <goods-item cus-class="goods-item" is="goodsItem" wx:for="{{goodsList}}" 
+                  goods="{{item}}" switch="{{true}}" delGoods="{{currIndex==1}}" linkType="2"
+                  bind:switchChange="getList"  
+                  bind:deleteSuccess="getList"></goods-item>
+      <empty-wrapper wx:if="{{goodsList.length == 0}}"></empty-wrapper>
+    </scroll-view>
+  </view>
+
+  <view class="add-goods">
+    <navigator url="/goods/pages/addGoods/index">新增商品</navigator>
+  </view>
+  
+</view>

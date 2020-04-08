@@ -1,0 +1,41 @@
+<!--miniprogram/pages/addressInfo/index.wxml-->
+<view class="address-info">
+  <view class="item">
+    <label class="title">姓名</label>
+    <input type="text" placeholder="最多输入6个字符" value="{{item.name}}" class="content" maxlength="6" bindinput="keyInput" data-name="name"></input>
+  </view>
+  <view class="item">
+    <label class="title">性别</label>
+    <radio-group class="radio-group" bindchange="radioChange">
+        <radio class="radio" color="#3d6034" value="1" checked="{{item.sex == 1}}">
+            <text>女</text>
+        </radio>
+        <radio class="radio" color="#3d6034" value="2" checked="{{item.sex == 2}}">
+            <text>男</text>
+        </radio>
+    </radio-group>
+  </view>
+  <view class="item">
+    <label class="title">联系电话</label>
+    <input type="text" placeholder="请输入11位手机号" value="{{item.tel}}" class="content" maxlength="11" bindinput="keyInput" data-name="tel"></input>
+  </view>
+  <view class="item" bindtap="showAreaPicker">
+    <label class="title">省市区</label>
+    <input type="text" placeholder="请选择省市区" value="{{(item.province_name || '')+(item.city_name||'')+(item.area_name||'')}}" class="content" disabled="true"></input>
+    <image src="../../../images/icons/list_btn_more@2x.png"></image>
+  </view>
+  <view class="item">
+    <label class="title">详细地址</label>
+    <textarea type="text" placeholder="请输入详细地址" value="{{item.detail}}" class="content detail" auto-height="true" maxlength="200" bindinput="keyInput" data-name="detail"></textarea></view>
+  <!-- <view class="item default">
+    <label class="title">默认地址</label>
+    <switch class="content" color="#3d6034" checked="{{item.is_default}}" bindchange="switch1Change"/>
+  </view> -->
+
+  <view class="actions">
+    <view class="button" bindtap="deleteAddress" wx:if="{{id}}">删除</view>
+    <view class="button active" bindtap="updateAddress">保存</view>
+  </view>
+</view>
+
+<area-picker class="bottom-slide" value="{{value}}" bind:confirm="confirm" bind:cancel="cancel" wx:if="{{showAreaPicker}}"></area-picker>

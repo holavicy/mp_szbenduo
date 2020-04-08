@@ -1,0 +1,47 @@
+<!--components/goodsItem/index.wxml-->
+<view class="goods-item cus-class">
+  <view class="top-action" wx:if="{{dealer_id && topAction}}">
+
+    <view class="select" bindtap="triggerSelect" data-select="{{goods.is_selected}}" data-id="{{goods._id}}">
+      <image src="../../images/icons/un_select.png" wx:if="{{!goods.is_selected}}"></image>
+      <image src="../../images/icons/selected.png" wx:if="{{goods.is_selected}}"></image>
+    </view>
+
+    <view class="delete" bindtap="deleteCart" data-id="{{goods._id}}">
+      <image src="../../images/icons/delete.png"></image>
+    </view>
+  
+  </view>
+  <view class="goods-info" bindtap="toGoodsInfo" data-id="{{cart?goods.goods_id:goods._id}}">
+    <view class="delete-action" data-id="{{goods._id}}" wx:if="{{delGoods}}" catchtap="deleteGoods"><image src="../../images/icons/shanchu.png"></image></view>
+    <view class="image">
+      <image src="{{goods.image}}"></image></view>
+    <view class="right-info">
+      <view class="name">{{goods.name}}</view>
+      <view class="description sub-info">{{goods.descript}}</view>
+      <view class="stok sub-info">库存：{{goods.stock}}</view>
+      <view class="bottom">
+        <view class="price">{{goods.price}}/{{goods.unit}}</view>
+        <view class="actions">
+          <!-- 上下架按钮 -->
+          <switch wx:if="{{dealer_id && switch}}" color="#3d6034" data-id="{{goods._id}}" checked="{{goods.status == 1}}" catchchange="switchChange" catchtap="true"/>
+          <!-- 加入购物车按钮 -->
+          <view wx:if="{{dealer_id && toCart}}" class="add-to-cart" data-id="{{goods._id}}" catchtap="toCart"><image src="../../images/icons/add.png"></image></view>
+
+          <!-- 数量变化 -->
+          <view class="num-change" wx:if="{{dealer_id && numChange}}">
+            <image src="../../images/icons/min.png" 
+                  data-id="{{goods._id}}" data-num="{{goods.num}}" data-stock="{{goods.stock}}" data-type="1" data-gid = "{{goods.goods_id}}"
+                  catchtap="updateNum"></image>
+            {{goods.num}}
+            <image src="../../images/icons/add.png" 
+                  data-id="{{goods._id}}" data-num="{{goods.num}}" data-stock="{{goods.stock}}" data-type="2" data-gid = "{{goods.goods_id}}"
+                  catchtap="updateNum"></image>
+          </view>
+        </view>
+      </view>
+      
+    </view>
+  </view>
+</view>
+

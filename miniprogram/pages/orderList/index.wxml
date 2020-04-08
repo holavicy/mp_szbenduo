@@ -1,0 +1,29 @@
+<!--miniprogram/goods/goodsList/index.wxml-->
+
+
+
+<view class="order-list">
+
+  <view class="list-wrapper">
+    <view class="tab">
+      <view class="tab-item {{currIndex == index?'active':''}}" wx:for="{{tabList}}" bindtap="setTab" data-index="{{index}}">{{item}}</view>
+    </view>
+    <scroll-view class="list" scroll-y="true" catchtouchmove="true">
+      <view class="order-item" wx:for="{{list}}" wx:key="index" data-id="{{item._id}}" bindtap="toOrderInfo">
+        <view class="title"><text class="order-id">{{item.create_time}}</text><text class="order-status">{{tabList[item.status]}}</text></view>
+
+        <view class="goods-item" wx:for="{{item.goodsList}}" wx:for-item="goods">
+          <view class="image"><image src="{{goods.image}}"></image></view>
+          <view class="info">
+            <view class="goods-name">{{goods.name}}</view>
+            <view class="goods-des">{{goods.descript}}</view>
+          </view>
+          <view class="num">×{{goods.num}}</view>
+        </view>
+
+      </view>
+      <empty-wrapper wx:if="{{list.length == 0}}"></empty-wrapper>
+    </scroll-view>
+  </view>
+  
+</view>

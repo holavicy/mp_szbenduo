@@ -1,0 +1,191 @@
+/* miniprogram/pages/confirmOrder/index.wxss */
+.confirm-order{
+  height: 100vh;
+  background: #F4F4F4;
+  display: flex;
+  flex-direction: column;
+  overflow-x:hidden;
+}
+
+.confirm-order .order-wrapper{
+  height: 200rpx;
+  flex-grow: 1;
+}
+
+.confirm-order .bottom{
+  height: 100rpx;
+  box-shadow: #E5E5E5 0 0 10rpx;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.order-wrapper .item-wrapper{
+  background: #ffffff;
+  margin-bottom: 20rpx;
+  padding: 0 20rpx;
+}
+
+.order-wrapper .item-wrapper .title{
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #222222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-wrapper .item-wrapper .content{
+  border-top: 1rpx solid #E5E5E5;
+  padding: 20rpx 0;
+}
+
+.title .more{
+  width: 20rpx;
+  height: 40rpx;
+  margin-left: 10rpx;
+}
+
+.to-address{
+  display: flex;
+  align-items: center;
+}
+
+.content .item{
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price{
+  font-weight: bold;
+  color: #3d6034;
+}
+
+.goods-item{
+  display: flex;
+  flex-wrap: nowrap;
+  border-bottom: 1rpx solid #E5E5E5;
+  padding: 20rpx;
+  height: 160rpx;
+  box-sizing: border-box;
+}
+.goods-item:last-child{
+  border-bottom: none;
+}
+
+.goods-item .image{
+  width: 120rpx;
+  flex-grow: 0;
+  margin-right: 10rpx;
+}
+
+.goods-item .info{
+  width: 100rpx;
+  flex-grow: 1;
+  font-size: 28rpx;
+}
+
+.goods-item .num{
+  width: 60rpx;
+  flex-grow: 0;
+  text-align: right;
+  font-size: 28rpx;
+  color: #222222;
+}
+
+.goods-item image{
+  width: 120rpx;
+  height: 120rpx;
+  display: block;
+}
+
+.goods-item .info .goods-name{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10rpx;
+}
+
+.goods-item .info .goods-des{
+  color: #888888;
+  font-size: 24rpx;
+}
+
+.confirm-order .bottom .info{
+  padding-left: 28rpx;
+  font-size: 24rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.confirm-order .bottom .info .price{
+  color: #3d6034;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.confirm-order .bottom .button{
+  width: 260rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #ffffff;
+  background: #3d6034;
+  font-size: 32rpx;
+  text-align: center;
+}
+
+.sub-info{
+  font-size: 24rpx;
+  color: #888888;
+}
+
+.goods-wrapper .title image{
+  width: 32rpx;
+  height: 32rpx;
+  display: block;
+}
+
+.goods-wrapper .content{
+  transition: .2s;
+}
+
+.goods-wrapper .content.up{
+  height: 160rpx;
+  overflow: hidden;
+}
+
+.goods-wrapper .content.up .goods-item:first-child{
+  border-bottom: none;
+}
+
+.title .btn{
+  font-size: 24rpx;
+  color: #EE9922;
+}
+
+.content .address{
+  font-size: 28rpx;
+  color: #222222;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content .link-man{
+  font-size: 24rpx;
+  color: #888888;
+}
+
+.item-wrapper .title text{
+  color:#000000;
+  font-weight: 500;
+}

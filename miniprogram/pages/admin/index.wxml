@@ -1,0 +1,2 @@
+<!--miniprogram/pages/admin/index.wxml-->
+<navigator url="/goods/pages/goodsList/index">商品中心</navigator>

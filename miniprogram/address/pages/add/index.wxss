@@ -1,0 +1,92 @@
+/* miniprogram/pages/addressInfo/index.wxss */
+.address-info{
+  background: #ffffff;
+  height: 100vh;
+  padding: 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #222222;
+}
+
+.address-info .item{
+  min-height: 100rpx;
+  border-bottom: 1rpx solid #E5E5E5;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.address-info .item .title{
+  width: 160rpx;
+}
+
+.address-info .item .content{
+  width: 160rpx;
+  flex-grow: 1;
+  color: #666;
+}
+
+.detail{
+  padding: 20rpx 0;
+  line-height: 30rpx;
+}
+
+.address-info .item.default{
+  justify-content: space-between;
+}
+
+.address-info .item.default .content{
+  width: 100rpx;
+  flex: 0;
+}
+
+.radio{
+  margin-right: 60rpx;
+  transform:scale(0.8);
+}
+
+.radio text{
+  font-size: 32rpx;
+}
+
+.actions{
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-weight: 500;
+  font-size: 36rpx;
+  box-shadow: #E5E5E5 0 0 10rpx;
+}
+
+.actions .button{
+  width: 50%;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.actions .button.active{
+  background: #3d6034;
+  color: #ffffff;
+}
+
+.item image{
+  width: 20rpx;
+  height: 40rpx;
+  display: block;
+}
+
+.bottom-slide{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 600rpx;
+  z-index: 2;
+  background: #ffffff;
+  box-shadow: #E5E5E5 0 0 10rpx;
+}

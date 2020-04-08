@@ -1,0 +1,5 @@
+<!--components/empty/index.wxml-->
+<view class="empty">
+<image src="../../images/icons/empty.png"></image>
+  <text>{{text}}</text>
+</view>

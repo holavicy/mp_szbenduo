@@ -1,0 +1,22 @@
+/* components/empty/index.wxss */
+
+.empty{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty image{
+  display: block;
+  width: 154rpx;
+  height: 128rpx;
+  box-sizing: border-box;
+  margin-bottom: 40rpx;
+}

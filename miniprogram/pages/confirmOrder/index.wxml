@@ -1,0 +1,63 @@
+<!--miniprogram/pages/confirmOrder/index.wxml-->
+<view class="confirm-order" catchtouchmove="true">
+
+  <scroll-view class="order-wrapper" scroll-y="true" catchtouchmove="true">
+    <view class="item-wrapper address-wrapper">
+      <view class="title" bindtap="toAddress" data-id="{{addressId || ''}}">
+        <text>收货地址</text>
+
+        <view class="to-address">
+          <text wx:if="{{!addressId}}">请选择</text>
+          <image src="../../images/icons/list_btn_more@2x.png" class="more"></image>
+        </view>
+        
+      </view>
+      <view class="content" wx:if="{{addressId}}">
+        <view class="address">{{(addressItem.province_name || '')+' '+(addressItem.city_name || '')+' '+(addressItem.area_name || '')+' '+(addressItem.detail || '')}}</view>
+        <view class="link-man">{{(addressItem.name || '')+(addressItem.sex==1?'女士':'先生')+' '+(addressItem.tel || '')}}</view>
+      </view>
+    </view>
+
+    <view class="item-wrapper goods-wrapper">
+      <view class="title">
+        <text>商品列表</text>
+        <view wx:if="{{goodsList.length>1}}" bindtap="scrollGoodsWrapper" class="btn">{{down?'收起列表':'展开列表'}}</view></view>
+      <view class="content {{down?'':'up'}}">
+        <view class="goods-item" wx:for="{{goodsList}}" bindtap="toGoodsInfo" data-id="{{item.goods_id}}">
+          <view class="image"><image src="{{item.image}}"></image></view>
+          <view class="info">
+            <view class="goods-name">{{item.name}}</view>
+            <view class="goods-des">{{item.descript}}</view>
+          </view>
+          <view class="num">×{{item.num}}</view>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="item-wrapper">
+      <view class="title">
+        <text>同程配送</text> 
+        <switch checked="{{isLogistic}}" bindchange="switchChange" color="#3d6034"/>
+      </view>
+    </view>
+
+    <view class="item-wrapper summary-wrapper">
+      <view class="title"><text>合计</text></view>
+      <view class="content">
+        <view class="item"><text class="title">商品总数量</text><text>×{{totalNum}}</text></view>
+        <view class="item"><text class="title">商品总金额</text><text class="price">¥{{totalGoodsPrice}}</text></view>
+        <view class="item">
+          <text class="title">运费</text>
+          <text class="price" wx:if="{{totalFreightPrice>0}}">¥{{totalFreightPrice}}</text>
+          <text wx:else class="sub-info">暂无运费</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="bottom">
+    <view class="info"><view>应支付</view><view class="price">¥{{totalPrice}}</view></view>
+    <view class="button" bindtap="toOrderPay">去支付</view>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+<!--components/modal/index.wxml-->
+<view class="modal">
+  <view class="mask"></view>
+  <view class="modal-wrapper">
+    <slot name="modal-title"></slot>
+    <slot name="modal-content"></slot>
+    <slot name="modal-bottom"></slot>
+  </view>
+</view>

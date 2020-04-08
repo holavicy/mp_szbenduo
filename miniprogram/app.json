@@ -1,0 +1,83 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/index/index",
+    "pages/storageConsole/storageConsole",
+    "pages/userConsole/userConsole",
+    "pages/databaseGuide/databaseGuide",
+    "pages/addFunction/addFunction",
+    "pages/deployFunctions/deployFunctions",
+    "pages/chooseLib/chooseLib",
+    "pages/openapi/openapi",
+    "pages/openapi/serverapi/serverapi",
+    "pages/openapi/callback/callback",
+    "pages/openapi/cloudid/cloudid",
+    "pages/im/im",
+    "pages/im/room/room",
+    "pages/cart/index",
+    "pages/userCenter/index",
+    "pages/admin/index",
+    "pages/productsCenter/index",
+    "pages/templates/goodsItem/index",
+    "pages/search/index",
+    "pages/orderList/index",
+    "pages/goodsInfo/index",
+    "pages/confirmOrder/index",
+    "pages/orderInfo/index"
+  ],
+  "subpackages": [
+    {
+      "root": "goods",
+      "pages": [
+        "pages/goodsList/index",
+        "pages/addGoods/index",
+        "pages/category/index"
+      ]
+    },
+    {
+      "root": "address",
+      "pages": [
+        "pages/list/index",
+        "pages/add/index"
+      ]
+    },
+    {
+      "root": "rule",
+      "pages": [
+        "pages/login/index"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3d6034",
+    "navigationBarTitleText": "苏州本多饮品原料直销",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "selectedColor": "#3d6034",
+    "list": [
+      {
+        "iconPath": "images/icons/list_default.png",
+        "selectedIconPath": "images/icons/list_selected.png",
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "iconPath": "images/icons/cart_empty_default.png",
+        "selectedIconPath": "images/icons/cart_empty.png",
+        "pagePath": "pages/cart/index",
+        "text": "购物车"
+      },
+      {
+        "iconPath": "images/icons/user_default.png",
+        "selectedIconPath": "images/icons/user_selected.png",
+        "pagePath": "pages/userCenter/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
