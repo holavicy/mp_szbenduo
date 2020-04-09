@@ -40,34 +40,8 @@ Page({
 //获取信息
   getList: function(){
     wx.showLoading();
-    wx.cloud.callFunction({
-      name:'getValidCartList',
-      success: (res)=>{
-        wx.hideLoading();
-        
-        let totalFreightPrice = Math.floor((res.result.list[0].totalFreightPrice) * 100) / 100;
-        let totalGoodsPrice = Math.floor((res.result.list[0].totalGoodsPrice) * 100) / 100;
-        let totalNum = res.result.list[0].totalNum;
-
-        if (totalGoodsPrice>=500){
-          totalFreightPrice = 0;
-        }
-
-        let totalPrice = Math.floor((totalGoodsPrice + totalFreightPrice) * 100) / 100
-
-        this.setData({
-          goodsList:res.result.list[0].goodsList,
-          totalFreightPrice: totalFreightPrice,
-          initFreightPrice: totalFreightPrice,
-          totalGoodsPrice: totalGoodsPrice,
-          totalPrice: totalPrice,
-          totalNum: totalNum
-        })
-      },
-      fail: (err)=>{
-        console.log(err);
-        wx.hideLoading();
-      }
+    this.getValidCartGoods().then((res)=>{
+      wx.hideLoading();
     })
   },
 
@@ -108,48 +82,7 @@ Page({
 
   //跳转支付页
 
-  toOrderPay: function(){
-    var timestamp = new Date().getTime()+'';
-    var num = '';
-    for (var i = 0; i < 3; i++) {
-      num += Math.floor(Math.random() * 10);
-    }
-
-    let nonceStr = timestamp + '' + num;
-    console.log(nonceStr)
-    wx.cloud.callFunction({
-      name:'pay',
-      data:{
-        out_trade_no:'321321321321321',
-        body:'ewqewqewq',
-        total_fee:100
-      },
-      success : (res) => {
-        console.log(res);
-
-      },
-      fail: (err) => {
-        console.log(err)
-      }
-    })
-    // wx.requestPayment({
-    //   timeStamp: timestamp,
-    //   nonceStr: nonceStr,
-    //   package: '',
-    //   signType: '',
-    //   paySign: '',
-    //   success: (res) => {
-    //     console.log(res);
-    //     wx.redirectTo({
-    //       url: '/pages/orderInfo/index?id=' + id
-    //     })
-    //   },
-    //   fail: (err) => {
-    //     console.log(err)
-    //   }
-    // })
-  },
-  toOrderPay1:function(){
+  toOrderPay:function(){
     //判断是否选择了地址
     let addressId = this.data.addressId;
     if (!addressId){
@@ -160,176 +93,144 @@ Page({
       return
     }
 
-    //创建订单
+    wx.showLoading({
+      title: '订单提交中',
+    })
 
-    //获取当前用户的所有选中的购物车内的有效商品，每个商品check num是否小于库存，若存在一个商品check失败，则整个订单提交失败，且提示：某某商品库存不足，请返回购物车重新操作
-    //若所有商品check成功，order表创建订单，所有的商品在购物车表的status置为2，调用支付API
+    this.getValidCartGoods().then( (res)=> {
+      let idsList = [];
 
-
-    wx.cloud.callFunction({
-      name: 'getValidCartList',
-      success: (res) => {
-        wx.hideLoading();
-
-        let totalFreightPrice = Math.floor((res.result.list[0].totalFreightPrice) * 100) / 100;
-        let totalGoodsPrice = Math.floor((res.result.list[0].totalGoodsPrice) * 100) / 100;
-        let totalNum = res.result.list[0].totalNum;
-
-        if (totalGoodsPrice >= 500) {
-          totalFreightPrice = 0;
-        }
-
-        if (this.data.isLogistic){
-          totalFreightPrice = 0;
-        }
-
-        let totalPrice = Math.floor((totalGoodsPrice + totalFreightPrice) * 100) / 100
-
-        this.setData({
-          goodsList: res.result.list[0].goodsList,
-          totalFreightPrice: totalFreightPrice,
-          initFreightPrice: totalFreightPrice,
-          totalGoodsPrice: totalGoodsPrice,
-          totalPrice: totalPrice,
-          totalNum: totalNum
-        })
-
-        let idsList = [];
-
-        if (res && res.result && res.result.list.length > 0 && res.result.list[0].goodsList.length > 0) {
-          let flag = true;
-          var goodsList = res.result.list[0].goodsList;
-          goodsList.map(goods => {
-            if (flag) {
-              idsList.push(goods._id);
-              if (goods.num > goods.stock) {
-                flag = false;
-                wx.showToast({
-                  title: goods.name + '库存不足，请返回购物车重新操作',
-                })
-              }
-            }
-          })
-        }
-
-        let data = {
-          total_num: Number(totalNum),
-          total_goods_price: Number(totalGoodsPrice),
-          total_freight_price: Number(totalFreightPrice),
-          total_price: Number(totalPrice),
-          is_freight: this.data.isLogistic,
-          address_id: this.data.addressId
-        }
-
-        wx.cloud.callFunction({
-          name:'createOrder',
-          data: {
-            item:data
-          },
-          success: (res) => {
-
-            if(res && res.result && res.result._id){
-              let id = res.result._id
-
-
-            //将商品插入order_goods表
-              goodsList.map(goods => {
-                
-                delete goods._id;
-                goods.order_id = id;
-
-                wx.cloud.callFunction({
-                  name:'addOrderGoods',
-                  data: goods,
-                  fail: (err) => {
-                    console.log(err)
-                  }
-                })
-
-                const db = wx.cloud.database();
-
-                db.collection('goods').doc(goods.goods_id).update({
-                  data:{
-                    stock: goods.stock - goods.num
-                  },
-                  fail: (err) => {
-                    console.log(err)
-                  }
-                  
-                })
+      //校验库存是否充足
+      if (res && res.result && res.result.list.length > 0 && res.result.list[0].goodsList.length > 0) {
+        let flag = true;
+        var goodsList = res.result.list[0].goodsList;
+        goodsList.map(goods => {
+          if (flag) {
+            idsList.push(goods._id);
+            if (goods.num > goods.stock) {
+              wx.hideLoading();
+              flag = false;
+              wx.showToast({
+                title: goods.name + '库存不足，请返回购物车重新操作',
               })
-
-              //购物车里面的商品要删除
-
-              let ids = idsList.join(',');
-
-              wx.cloud.callFunction({
-                name: 'deleteCart',
-                data: {
-                  ids: ids
-                },
-                success: (res) => {
-                  if (res && res.result && res.result.code == 0) {
-                    wx.requestPayment({
-                      timeStamp: '',
-                      nonceStr: '',
-                      package: '',
-                      signType: '',
-                      paySign: '',
-                      success: (res) => {
-                        console.log(res);
-                        wx.redirectTo({
-                          url: '/pages/orderInfo/index?id=' + id
-                        })
-                      }
-                    })
-                    
-                  }
-                }
-              })
-
-           
             }
-
-          },
-          fail: (err) => {
-            console.log(err)
           }
         })
 
+        if(flag){ //若商品库存充足，则创建订单，创建订单商品关联，创建订单地址关联，库存减少，删除购物车的数据，发起微信支付
+          let data = {
+            total_num: Number(this.data.totalNum),
+            total_goods_price: Number(this.data.totalGoodsPrice),
+            total_freight_price: Number(this.data.totalFreightPrice),
+            total_price: Number(this.data.totalPrice),
+            is_freight: this.data.isLogistic,
+            address_id: this.data.addressId
+          }
 
-        // wx.requestPayment({
-        //   'timeStamp': payInfo.timeStamp,
-        //   'nonceStr': payInfo.nonceStr,
-        //   'package': payInfo.package,
-        //   'signType': payInfo.signType,
-        //   'paySign': payInfo.paySign,
-        //   'success': function (res) {
-        //     // 跳转支付成功页面
-        //     if (_that.data.systemPlatForm == 'android') {
-        //       wx.redirectTo({
-        //         url: '/pages/orderSuccess/index?orderId=' + _that.data.orderId + '&realAmount=' + _that.data.orderDetail.amount
-        //       })
-        //     } else {
-        //       wx.reLaunch({
-        //         url: '/pages/orderSuccess/index?orderId=' + _that.data.orderId + '&realAmount=' + _that.data.orderDetail.amount
-        //       })
-        //     }
+          wx.cloud.callFunction({
+            name: 'createOrder',
+            data: {
+              item: data
+            },
+            success: (res) => {
 
-        //   },
-        //   'fail': function (res) {
-        //     // 跳转支付失败页面
+              if (res && res.result && res.result._id) {//将商品插入order_goods表
+                var order_id = res.result._id;
+                const db = wx.cloud.database();
 
-        //     wx.navigateTo({
-        //       url: '/pages/orderFail/index?orderId=' + _that.data.orderId + '&realAmount=' + _that.data.orderDetail.amount
-        //     })
+                let promiseList = [];
+                goodsList.map(goods => {
+                  var createPromise = this.createGoodsRel(goods, order_id);
+                  promiseList.push(createPromise);
+                })
 
-        //   }
-        // });
-      },
-      fail: (err) => {
-        console.log(err);
-        wx.hideLoading();
+                Promise.all(promiseList).then((result) => {
+                  let success = true
+                  result.map(res => {
+                    if(success){
+                      if (res.result.code != 0) {
+                        success = false
+                      }
+                    }
+                  });
+
+                  if (success) {//更新库存
+                    let updatePromise = [];
+
+                    goodsList.map((goods) => {
+                      let promise = this.updateGoodsStock(goods);
+                      updatePromise.push(promise)
+                    })
+
+                    Promise.all(updatePromise).then(result => {
+                      let upSuccess = true
+                      result.map(res => {
+                        if (upSuccess) {
+                          if (res.errMsg.indexOf('ok') < 0) {
+                            upSuccess = false
+                          }
+                        }
+                      });
+
+                      if (upSuccess) {//购物车里面的商品要删除
+
+                        let ids = idsList.join(',');
+
+                        wx.cloud.callFunction({
+                          name: 'deleteCart',
+                          data: {
+                            ids: ids
+                          },
+                          success: (res) => { //获取签名等支付参数
+                            if (res && res.result && res.result.code == 0) {
+
+                              let body = '共' + this.data.totalNum + '件商品';
+                              wx.cloud.callFunction({
+                                name: 'getPay',
+                                data: {
+                                  total_fee: parseFloat(this.data.totalPrice).toFixed(2) * 100,
+                                  attach: 'anything',
+                                  body: body
+                                },
+                                success: (res) => { //调用支付接口
+                                  this.payAPI(res, order_id)
+                                },
+                                fail: (err) => {
+                                  console.log(err);
+                                  this.payErr();
+                                }
+                              })
+
+                            } else {
+                              this.payErr(); 
+                            }
+                          },
+                          fail: (err) => {
+                            console.log(err);
+                            this.payErr(); 
+                          }
+                        })
+                      } else {
+                        this.payErr();    
+                      }
+                    })
+                  } else {
+                    this.payErr();
+                  }
+                }).catch((error) => {
+                  console.log(error);
+                  this.payErr();
+                })
+              }
+
+            },
+            fail: (err) => {
+              console.log(err)
+            }
+          })
+        }
+      } else {
+        this.payErr();
       }
     })
   },
@@ -358,6 +259,141 @@ Page({
   scrollGoodsWrapper: function(){
     this.setData({
       down: !this.data.down
+    })
+  },
+
+  //获取信息
+  getValidCartGoods: function(){
+    return new Promise( (resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'getValidCartList',
+        success: (res) => {
+
+          let totalFreightPrice = Math.floor((res.result.list[0].totalFreightPrice) * 100) / 100;
+          let totalGoodsPrice = Math.floor((res.result.list[0].totalGoodsPrice) * 100) / 100;
+          let totalNum = res.result.list[0].totalNum;
+
+          if (totalGoodsPrice >= 500) {
+            totalFreightPrice = 0;
+          }
+
+          if (this.data.isLogistic) {
+            totalFreightPrice = 0;
+          }
+
+          let totalPrice = Math.floor((totalGoodsPrice + totalFreightPrice) * 100) / 100
+
+          this.setData({
+            goodsList: res.result.list[0].goodsList,
+            totalFreightPrice: totalFreightPrice,
+            initFreightPrice: totalFreightPrice,
+            totalGoodsPrice: totalGoodsPrice,
+            totalPrice: totalPrice,
+            totalNum: totalNum
+          })
+
+          resolve(res)
+        },
+        fail: (err) => {
+          console.log(err);
+          wx.hideLoading();
+          reject(err)
+        }
+      })
+    })
+  },
+
+  //创建订单和商品之间的联系
+  createGoodsRel: function(goods, id){
+    var p = new Promise((resolve, reject) => {
+
+      delete goods._id;
+      goods.order_id = id;
+
+      wx.cloud.callFunction({
+        name: 'addOrderGoods',
+        data: goods,
+        success: (res) => {
+          resolve(res)
+        },
+        fail: (err) => {
+          console.log(err);
+          this.payErr();
+        }
+      })
+ 
+    })
+    return p
+  },
+
+  //更新商品库存
+  updateGoodsStock: function (goods) {
+    const db = wx.cloud.database();
+    var p = new Promise((resolve, reject) => {
+
+      db.collection('goods').doc(goods.goods_id).update({
+        data: {
+          stock: goods.stock - goods.num
+        },
+        success: (res) => {
+          resolve(res)
+        },
+        fail: (err) => {
+          console.log(err);
+          this.payErr();
+        }
+
+      })
+    })
+    return p
+  },
+
+  //调用支付接口
+  payAPI: function(res, id){
+    wx.requestPayment({
+      appId: res.result.appid,
+      timeStamp: res.result.timeStamp,
+      nonceStr: res.result.nonce_str,
+      package: 'prepay_id=' + res.result.prepay_id,
+      signType: 'MD5',
+      paySign: res.result.paySign,
+      success: res => {
+        wx.cloud.callFunction({
+          name: 'updateOrderStatus',
+          data: {
+            id: id,
+            status: 2
+          },
+          success: (res) => {
+            console.log(res)
+            wx.hideLoading()
+            wx.redirectTo({
+              url: '/pages/orderInfo/index?id=' + id
+            })
+          },
+          fail: (err) => {
+            console.log(err);
+            wx.hideLoading()
+            wx.redirectTo({
+              url: '/pages/orderInfo/index?id=' + id
+            })
+          }
+        })
+      },
+      fail: (err) => {
+        wx.redirectTo({
+          url: '/pages/orderInfo/index?id=' + id
+        })
+      }
+    })
+  },
+
+  //支付错误回调方法
+  payErr: function(){
+    wx.hideLoading();
+    wx.showToast({
+      title: '客观别急，请稍后再试',
+      icon: 'none'
     })
   }
 })

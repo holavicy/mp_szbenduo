@@ -86,6 +86,12 @@
         <view class="title">总订单数</view>
       </view>
     </view>
+
+
+    <view class="action-list">
+      <navigator class="item" hover-class="none" url="/address/pages/freight/index">地址运费配置<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
+      <navigator class="item" hover-class="none" url="/address/pages/list/index">我的地址<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
+    </view>
  
   </view>
 

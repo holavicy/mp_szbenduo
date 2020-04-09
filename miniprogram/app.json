@@ -38,7 +38,8 @@
       "root": "address",
       "pages": [
         "pages/list/index",
-        "pages/add/index"
+        "pages/add/index",
+        "pages/freight/index"
       ]
     },
     {

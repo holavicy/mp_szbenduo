@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ip": "^1.1.5",
     "tenpay": "^2.1.18",
-    "wx-server-sdk": "latest"
+    "wx-js-utils": "^1.0.0",
+    "wx-server-sdk": "^1.8.3"
   }
 }

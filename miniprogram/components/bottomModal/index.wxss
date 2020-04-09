@@ -1,0 +1,34 @@
+/* components/modal/index.wxss */
+.modal{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+}
+
+.modal .mask{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000000;
+  opacity: .2;
+  z-index: 10001;
+}
+
+.modal-wrapper{
+  min-height:300rpx;
+  background: #ffffff;
+  z-index: 10002;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  max-height: 800rpx;
+}
