@@ -26,7 +26,7 @@
   </view>
   <view class="item">
     <label class="title">详细地址</label>
-    <textarea type="text" placeholder="请输入详细地址" value="{{item.detail}}" class="content detail" auto-height="true" maxlength="200" bindinput="keyInput" data-name="detail"></textarea></view>
+    <textarea type="text" placeholder="请输入详细地址" value="{{item.detail}}" class="content detail" auto-height="true" maxlength="60" bindinput="keyInput" data-name="detail"></textarea></view>
   <!-- <view class="item default">
     <label class="title">默认地址</label>
     <switch class="content" color="#3d6034" checked="{{item.is_default}}" bindchange="switch1Change"/>

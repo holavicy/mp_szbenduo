@@ -101,6 +101,8 @@ Page({
   submit: function(e){
     let data = this.data.goodsItem;
 
+    let priceReg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+
     //校验数据
 
     if (!data.name){
@@ -126,10 +128,24 @@ Page({
       })
       return
     }
-
+    if (!/^[1-9]\d*$/.test(data.stock)) {
+      wx.showToast({
+        title: '库存必须是大于0的整数',
+        icon: 'none'
+      })
+      return
+    }
     if (!data.price) {
       wx.showToast({
         title: '价格不能为空',
+        icon: 'none'
+      })
+      return
+    }
+
+    if (!priceReg.test(data.price)){
+      wx.showToast({
+        title: '价格必须是大于0的两位小数',
         icon: 'none'
       })
       return
@@ -151,9 +167,25 @@ Page({
       return
     }
 
+    if (!priceReg.test(data.base_freight_price)) {
+      wx.showToast({
+        title: '基础运费必须是大于0的两位小数',
+        icon: 'none'
+      })
+      return
+    }
+
     if (!data.inc_freight_price) {
       wx.showToast({
         title: '增量运费不能为空',
+        icon: 'none'
+      })
+      return
+    }
+
+    if (!priceReg.test(data.inc_freight_price)) {
+      wx.showToast({
+        title: '增量运费必须是大于0的两位小数',
         icon: 'none'
       })
       return
@@ -204,7 +236,8 @@ Page({
         pictureCloudList: pictureCloudList
       })
 
-      this.submitRes(data)
+      this.submitRes(data);
+  
     }).catch((error) => {
       console.log(error)
     })
@@ -221,50 +254,87 @@ Page({
     data.stock = Number(data.stock);
 
     if(this.data.id){
-      data.update_time = db.serverDate();
-      delete data._id;
-      delete data._openid;
-      
-      db.collection('goods').doc(this.data.id).update({
-        // data 传入需要局部更新的数据
-        data: data,
+      db.collection('goods').where({
+        name: data.name
+      }).get({
         success: (res) => {
-          console.log(res);
 
-          if(res.stats.updated){
+          if (res.data.length > 0 && res.data[0]._id != data._id) {
             wx.showToast({
-              title: '更新成功',
+              title: '该商品名称已存在',
+              icon: 'none'
             })
-            wx.navigateBack({})
-          }
-        },
-        fail: (err) => {
-          console.log(err)
-        }
-      })
-    } else {
-      
-      data.status = 3;
-      data.create_time = db.serverDate();
-      data.update_time = db.serverDate();
+          } else {
+            data.update_time = db.serverDate();
+            delete data._id;
+            delete data._openid;
 
-      db.collection('goods').add({
-        data: data,
-        success: res => {
-          wx.showToast({
-            title: '新增商品成功',
-          })
-          wx.navigateTo({
-            url: '/goods/pages/goodsList/index',
-          })
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '新增商品失败'
-          })
+            db.collection('goods').doc(this.data.id).update({
+              // data 传入需要局部更新的数据
+              data: data,
+              success: (res) => {
+                console.log(res);
+
+                if (res.stats.updated) {
+                  wx.showToast({
+                    title: '更新成功',
+                  })
+                  wx.navigateBack({})
+                }
+              },
+              fail: (err) => {
+                console.log(err)
+              }
+            })
+          }
         }
       })
+
+
+
+      
+
+    } else {
+
+
+      
+      db.collection('goods').where({
+        name: data.name
+      }).get({
+        success: (res) => {
+
+          if (res.data.length > 0) {
+            wx.showToast({
+              title: '该商品名称已存在',
+              icon: 'none'
+            })
+          } else {
+            data.status = 3;
+            data.create_time = db.serverDate();
+            data.update_time = db.serverDate();
+
+            db.collection('goods').add({
+              data: data,
+              success: res => {
+                wx.showToast({
+                  title: '新增商品成功',
+                })
+                wx.navigateTo({
+                  url: '/goods/pages/goodsList/index',
+                })
+              },
+              fail: err => {
+                wx.showToast({
+                  icon: 'none',
+                  title: '新增商品失败'
+                })
+              }
+            })
+          }
+        }
+      })
+      
+
     }
     
   },

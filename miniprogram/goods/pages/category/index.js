@@ -56,31 +56,49 @@ Page({
       return
     }
 
-    wx.cloud.callFunction({
-      name:'addCategory',
-      data:{
-        name: categoryName
-      },
-      success: (res)=>{
+  const db = wx.cloud.database();
+    db.collection('category').where({
+      name: categoryName
+    }).get({
+    success: (res) => {
+      console.log(res);
 
-        if(res && res.result && res.result.code == 0){
-          wx.showToast({
-            title: '新增分类成功',
-          });
-          this.queryCategory();
-          this.setData({
-            categoryName:''
-          })
-        }
-      },
-      fail: (err)=>{
-        console.log(err);
+      if(res.data.length>0){
         wx.showToast({
-          icon: 'none',
-          title: '新增分类失败'
+          title: '该分类名称已存在',
+          icon:'none'
+        })
+      } else {
+        wx.cloud.callFunction({
+          name:'addCategory',
+          data:{
+            name: categoryName
+          },
+          success: (res)=>{
+
+            if(res && res.result && res.result.code == 0){
+              wx.showToast({
+                title: '新增分类成功',
+              });
+              this.queryCategory();
+              this.setData({
+                categoryName:''
+              })
+            }
+          },
+          fail: (err)=>{
+            console.log(err);
+            wx.showToast({
+              icon: 'none',
+              title: '新增分类失败'
+            })
+          }
         })
       }
-    })
+    }
+  })
+
+
   },
 
   //查询分类
@@ -197,19 +215,32 @@ Page({
       name:name
     }
 
-    wx.cloud.callFunction({
-      name:'updateCategory',
-      data:data,
-      success: (res)=>{
-        console.log(res);
-
-        if(res && res.result && res.result.code == 0){
+    const db = wx.cloud.database();
+    db.collection('category').where({
+      name: name
+    }).get({
+      success: (res) => {
+        if(res.data.length>0 &&res.data[0]._id != id){
+          wx.showToast({
+            title: '该分类已存在',
+            icon:'none'
+          })
           this.queryCategory();
+        } else {
+          wx.cloud.callFunction({
+            name: 'updateCategory',
+            data: data,
+            success: (res) => {
+              console.log(res);
+
+              if (res && res.result && res.result.code == 0) {
+                this.queryCategory();
+              }
+            }
+          })
         }
       }
-    })
-
-    
+    })   
   },
 
   bindKey: function(e){

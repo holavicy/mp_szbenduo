@@ -178,6 +178,33 @@ Page({
       return
     }
 
+    if (item.name.length>6) {
+      wx.showToast({
+        title: '姓名最多输入6个字符',
+        icon: 'none'
+      })
+
+      return
+    }
+
+    if (!/^1\d{10}$/.test(item.tel)) {
+      wx.showToast({
+        title: '联系电话格式错误',
+        icon: 'none'
+      })
+
+      return
+    }
+
+    if (item.detail.length>60) {
+      wx.showToast({
+        title: '详细地址最多只能输入60个字符',
+        icon: 'none'
+      })
+
+      return
+    }
+
     wx.showLoading({
       mask: true
     })

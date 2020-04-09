@@ -117,22 +117,37 @@ Page({
 
     let nonceStr = timestamp + '' + num;
     console.log(nonceStr)
-    wx.requestPayment({
-      timeStamp: timestamp,
-      nonceStr: nonceStr,
-      package: '',
-      signType: '',
-      paySign: '',
-      success: (res) => {
+    wx.cloud.callFunction({
+      name:'pay',
+      data:{
+        out_trade_no:'321321321321321',
+        body:'ewqewqewq',
+        total_fee:100
+      },
+      success : (res) => {
         console.log(res);
-        wx.redirectTo({
-          url: '/pages/orderInfo/index?id=' + id
-        })
+
       },
       fail: (err) => {
         console.log(err)
       }
     })
+    // wx.requestPayment({
+    //   timeStamp: timestamp,
+    //   nonceStr: nonceStr,
+    //   package: '',
+    //   signType: '',
+    //   paySign: '',
+    //   success: (res) => {
+    //     console.log(res);
+    //     wx.redirectTo({
+    //       url: '/pages/orderInfo/index?id=' + id
+    //     })
+    //   },
+    //   fail: (err) => {
+    //     console.log(err)
+    //   }
+    // })
   },
   toOrderPay1:function(){
     //判断是否选择了地址

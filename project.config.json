@@ -30,13 +30,30 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 0,
 			"list": [
 				{
 					"id": -1,
 					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide"
+					"pathName": "pages/databaseGuide/databaseGuide",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "新增收货地址",
+					"pathName": "address/pages/add/index",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "新增商品",
+					"pathName": "goods/pages/addGoods/index",
+					"scene": null
 				}
 			]
 		}
