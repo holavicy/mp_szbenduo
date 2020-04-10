@@ -3,6 +3,7 @@
   <view class="top">
     <view class="img">
       <image wx:if="{{avatarUrl}}" src="{{avatarUrl}}"></image>
+      <image wx:else src="../../images/icons/user_default.png"></image>
     </view>
     <view class="nick-name"> 
       <!-- <button wx:if="{{!dealerId}}" class="get-info" open-type="getUserInfo" hover-class="none" bindgetuserinfo="onGetUserInfo">微信一键登录</button> -->
@@ -82,7 +83,7 @@
 
     </view>
 
-    <view class="total-wrapper">
+    <!-- <view class="total-wrapper">
       <view class="circle-item large">
         <view class="num">{{totalOrderNum>99?'99+':totalOrderNum}}</view>
         <view class="title">总销售额</view>
@@ -92,7 +93,7 @@
         <view class="num">{{totalOrderNum}}</view>
         <view class="title">总订单数</view>
       </view>
-    </view>
+    </view> -->
  
   </view>
 
@@ -102,8 +103,11 @@
   <view slot="modal-content" class="modal-content">
     <view>请先登录,再进行操作</view>
     <view class="rule">
-      <image src="../../images/icons/xuanze.png" wx:if="{{read}}" bindtap="setRead"></image>
-      <image src="../../images/icons/un_select.png" wx:else bindtap="setRead"></image>
+    <view class="read-btn" bindtap="setRead">
+      <image src="../../images/icons/xuanze.png" wx:if="{{read}}" ></image>
+      <image src="../../images/icons/un_select.png" wx:else></image>
+    </view>
+
       阅读并同意以下协议
       <navigator url="/rule/pages/login/index" hover-class="none" class="service-rule"> 服务协议</navigator></view>
   </view>
