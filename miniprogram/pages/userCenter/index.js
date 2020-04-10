@@ -54,12 +54,11 @@ Page({
 
     if (app.globalData.openid) {
       this.onGetOpenid();
-      this.getCateCount();
-      
-      
+      // this.getCateCount();
+      // this.getGoodsCount();
+      // this.getOrderCount();
     }
-    this.getGoodsCount();
-    this.getOrderCount();
+
   },
   confirmGetUserInfo:function(){
     this.setData({
@@ -111,6 +110,10 @@ Page({
                   isAdmin: 2
                 })
               }
+
+              this.getCateCount();
+              this.getGoodsCount();
+              this.getOrderCount();
             }
           })
         }
