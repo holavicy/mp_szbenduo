@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "area-picker": "../../components/areaPicker/index"
-  }
+  },
+  "navigationBarTitleText": "新增地址"
 }

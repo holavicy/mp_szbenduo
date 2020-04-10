@@ -88,6 +88,7 @@ Component({
       const db = wx.cloud.database();
       wx.showLoading({
         title: '',
+        mask: true
       })
       
       let goodsId = e.currentTarget.dataset.id;

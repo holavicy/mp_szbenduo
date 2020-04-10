@@ -1,6 +1,6 @@
 <!--miniprogram/pages/addressList/index.wxml-->
-<view class="address-list">
-  <view class="list-wrapper">
+<view class="address-list" catchtouchmove="true">
+  <scroll-view scroll-y="true" class="list-wrapper" >
     <view class="address-item" wx:for="{{list}}" bindtap="toInfo" data-id="{{item._id}}">
       <view class="select" wx:if="{{type ==1}}" catchtap="selectAddress" data-id="{{item._id}}">
         <image src="../../../images/icons/xuanze.png" wx:if="{{id==item._id}}"></image>
@@ -15,7 +15,7 @@
       </view>
     </view>
     <empty-wrapper wx:if="{{list.length == 0}}"></empty-wrapper>
-  </view>
+  </scroll-view>
 
 
   <view class="bottom">

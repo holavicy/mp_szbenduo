@@ -17,7 +17,14 @@ Page({
   onLoad: function (options) {
     let id = options.id || '';
     this.setData({
-      id:id})
+      id:id});
+
+    if (id){
+      wx.setNavigationBarTitle({
+        title: '编辑地址'
+      })
+    }
+
   },
 
   /**
