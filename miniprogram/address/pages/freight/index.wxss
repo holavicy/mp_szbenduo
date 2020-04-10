@@ -55,6 +55,7 @@
 
 .city.rules{
   margin-top: 20rpx;
+  padding: 0 0 20rpx 0;
 }
 
 .rule{
@@ -123,4 +124,9 @@
 
 .modal-title .active{
   color:  #4fa34f
+}
+.empty-rule{
+  text-align: center;
+  color: #888888;
+  margin-top: 40rpx;
 }

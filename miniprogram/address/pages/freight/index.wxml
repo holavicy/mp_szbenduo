@@ -23,17 +23,23 @@
       <view class="amount">
         <view class="info">
           <text>免邮需满</text>
-          <input value="{{item.amount}}"></input>
+          <input value="{{item.amount}}" data-index="{{index}}" bindinput="setAmount"></input>
           <text>元</text>
         </view>
 
         <view class="actions">
-          <image src="../../../images/icons/xuanze.png"></image>
-          <image src="../../../images/icons/delete.png"></image>
+          <image src="../../../images/icons/xuanze.png" 
+                  data-index="{{index}}" data-id="{{item._id}}" 
+                  bindtap="addRule"></image>
+          <image src="../../../images/icons/delete.png" 
+                  data-index="{{index}}" data-id="{{item._id}}"
+                  bindtap="deleteRule"></image>
         </view>
       </view>
 
     </view>
+
+    <view class="empty-rule" wx:if="{{rules.length<1}}">可以点击“新增”按钮，添加自定义运费规则哦~</view>
     
   </view>
 </view>
