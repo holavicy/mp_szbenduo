@@ -20,9 +20,13 @@
 
 .info{
   background-color: #ffffff;
-  padding: 15rpx 20rpx;
   margin-top: 20rpx;
   flex-grow: 1;
+}
+
+.scroll-view{
+  height: 300rpx;
+  flex: 1;
 }
 
 .goods-price{
@@ -30,7 +34,9 @@
   line-height: 100rpx;
   font-size: 28rpx;
   font-weight: bold;
-  color: #3d6034;
+  color: #ffffff;
+  background-image: linear-gradient(to bottom right, #3d6034, rgb(36, 153, 114));
+  padding: 0 20rpx;
 }
 
 .goods-price .price{
@@ -41,45 +47,49 @@
   font-size: 32rpx;
   font-weight: bold;
   line-height: 48rpx;
-  margin-bottom: 20rpx;
+  margin: 20rpx;
 }
 .goods-des{
   font-size: 28rpx;
   color: #888888;
+  padding: 0 20rpx 20rpx 20rpx;
 }
 
 .bottom{
   display: flex;
   justify-content: space-between;
-  height: 100rpx;
   background: #ffffff;
   margin-top: 20rpx;
   align-items: center;
   padding-left: 20rpx;
+  height: 100rpx;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .bottom .num-change{
   display: flex;
-  width: 200rpx;
   justify-content: space-between;
   align-items: center;
 
 }
 
 .bottom .num-change image{
-  width: 30rpx;
-  height: 30rpx;
+  width: 50rpx;
+  height: 50rpx;
   display: block;
 }
 
 .bottom .num-change input{
-  width: 80rpx;
+  width: 142rpx;
   flex-shrink: 1;
   text-align: center;
   border: 1rpx solid #E5E5E5;
   border-radius: 12rpx;
-  margin: 0 10rpx;
+  margin: 0 20rpx;
   flex-grow: 1;
+  height: 50rpx;
+  line-height: 50rpx;
 }
 
 .bottom .button{
