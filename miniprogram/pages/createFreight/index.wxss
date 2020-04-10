@@ -1,0 +1,132 @@
+/* pages/addAfterSaleFexNo/index.wxss */
+.add-afterSale-fexNo{
+  background-color: #f2f2f2;
+  height: 100vh;
+}
+
+.btn-submit{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100rpx;
+  background-color: #3d6034;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 36rpx;
+}
+
+.line-item{
+  padding: 0 20rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+    margin-top: 20rpx;
+  display: flex;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  align-items: center;
+  background: #fff;
+}
+
+.item-left{
+  width: 152rpx;
+  color: #222222;
+}
+
+.item-right{
+  width: 558rpx;
+}
+
+.right-icon{
+  width: 20rpx;
+  height: 40rpx;
+}
+
+.flex-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bottom-layer{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+}
+
+.bottom-layer-bg{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #222222;
+  opacity: .1;
+  z-index: 10001;
+}
+
+.bottom-layer-content{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10002;
+  background-color: #F4F4F4;
+}
+
+.bottom-btn{
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: #3d6034;
+  text-align: center;
+  color: #ffffff;
+  font-size: 36rpx;
+}
+.opntions-wrap{
+  min-height:550rpx;
+  max-height: 800rpx;
+  overflow-y: auto;
+  background-color: #F4F4F4;
+}
+
+.opntions-wrap .options{
+  background-color: #ffffff;
+}
+
+.option-item{
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #222222;
+  border-bottom: 1rpx solid #E5E5E5;
+  margin: 0 20rpx;
+}
+
+.option-item.active{
+  color: #3d6034;
+}
+
+.title{
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 36rpx;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  text-align: center;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.option-item:last-child{
+  border-bottom: 0;
+}
+
+
+.placeholder-class{
+  color: #C0C0C0;
+}

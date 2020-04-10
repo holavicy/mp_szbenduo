@@ -60,20 +60,24 @@
     </navigator>
 
 
+    <navigator url="/pages/orderList/index?status=2" hover-class="none">
       <view class="circle-item small">
         <view class="num">{{unFreightOrderNum}}</view>
         <view class="title">未发货</view>
       </view>
-
+    </navigator>
+    <navigator url="/pages/orderList/index?status=3" hover-class="none">
       <view class="circle-item small">
         <view class="num">{{unConfirmOrderNum}}</view>
         <view class="title">已发货</view>
       </view>
-
+    </navigator>
+    <navigator url="/pages/orderList/index?status=4" hover-class="none">
       <view class="circle-item small">
         <view class="num">{{unConfirmOrderNum>99?'99+':finishedOrderNum}}</view>
         <view class="title">已完成</view>
       </view>
+    </navigator>
 
 
     </view>

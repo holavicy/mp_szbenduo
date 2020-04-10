@@ -23,7 +23,8 @@
     "pages/orderList/index",
     "pages/goodsInfo/index",
     "pages/confirmOrder/index",
-    "pages/orderInfo/index"
+    "pages/orderInfo/index",
+    "pages/createFreight/index"
   ],
   "subpackages": [
     {
