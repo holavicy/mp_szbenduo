@@ -45,6 +45,8 @@ exports.main = async (event, context) => {
         total_num: 1,
         status: 1,
         goodsList: 1,
+        expressName:1,
+        expressNo:1,
         create_time: $.dateToString({
           date: '$create_time',
           format: '%Y-%m-%d %H:%M:%S'

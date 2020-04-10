@@ -36,6 +36,18 @@
       </view>
     </view>
 
+    <view class="item-wrapper logistic">
+      <view class="title">
+        <text>物流信息</text> 
+      </view>
+      <view class="content">
+        <view>物流公司：{{order.expressName}}</view>
+        <view>物流单号：{{order.expressNo}}</view>
+      </view>
+    </view>
+
+
+
     <view class="item-wrapper summary-wrapper">
       <view class="title"><text>合计</text></view>
       <view class="content">
@@ -54,7 +66,7 @@
   <view class="bottom" wx:if="{{order.status != 5}}">
     <view class="button" bindtap="toOrderPay" wx:if="{{order.status == 1}}">去支付</view>
      <view class="button" bindtap="toCreateFreight" wx:if="{{order.status == 2 && isAdmin == 1}}">去发货</view>
-    <view class="button" bindtap="toOrderPay" wx:if="{{order.status == 3}}">确认收货</view>
+    <view class="button" bindtap="confirmOrder" wx:if="{{order.status == 3}}">确认收货</view>
     <view class="button" bindtap="cancelOrder" wx:if="{{order.status != 5}}">取消订单</view>
   </view>
 </view>
