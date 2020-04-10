@@ -52,10 +52,13 @@
     </view>
 
     <view class="order-wrapper">
+    <navigator url="/pages/orderList/index?status=1" hover-class="none">
       <view class="circle-item small">
         <view class="num">{{unPayOrderNum}}</view>
         <view class="title">待付款</view>
       </view>
+    </navigator>
+
 
       <view class="circle-item small">
         <view class="num">{{unFreightOrderNum}}</view>
@@ -68,7 +71,7 @@
       </view>
 
       <view class="circle-item small">
-        <view class="num">{{finishedOrderNum>99?'99+':finishedOrderNum}}</view>
+        <view class="num">{{unConfirmOrderNum>99?'99+':finishedOrderNum}}</view>
         <view class="title">已完成</view>
       </view>
 

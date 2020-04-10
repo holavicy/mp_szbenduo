@@ -49,7 +49,7 @@ exports.main = async (event, context) => {
           date: '$create_time',
           format: '%Y-%m-%d %H:%M:%S'
         })
-      })
+      }).limit(1000)
       .end()
       .then(res => { return res })
       .catch(err => console.error(err))
