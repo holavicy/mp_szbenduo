@@ -13,7 +13,7 @@
   </swiper>
   
   <view class="info">
-    <view class="goods-price">¥<text class="price">{{goodsInfo.price}}</text>/{{goodsInfo.unit}}</view>
+    <view class="goods-price" wx:if="{{goodsInfo.price}}">¥<text class="price">{{goodsInfo.price}}</text>/{{goodsInfo.unit}}</view>
     <view class="goods-name">{{goodsInfo.name}}</view>
     <view class="goods-des">{{goodsInfo.descript}}</view>
   </view>

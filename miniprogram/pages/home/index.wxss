@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background: #F4F4F4;
+  background: #E5E5E5;
   overflow-x: hidden;
 }
 .search-wrapper{
@@ -55,38 +55,34 @@
 .goods-wrapper{
   width: 100%;
   display: flex;
-  background: #E5E5E5;
   height: 800rpx;
   flex: 1;
-  margin: 20rpx 0;
 }
 
 .goods-wrapper .left-nav{
-  width: 140rpx;
-  background: #ffffff;
-  box-shadow: #E5E5E5 2rpx 0 4rpx 0;
+  width: 160rpx;
+  background: #f8f7f7;
   overflow: auto;
   font-size: 28rpx;
   box-sizing: border-box;
   position: relative;
-  z-index: 2;
 }
 
 .goods-wrapper .right-content{
-  width: 610rpx;
+  width: 590rpx;
 }
 
 .nav-item{
-  padding: 0 10rpx;
-  margin: 36rpx 0;
+  padding: 30rpx 10rpx;
   font-size: 28rpx;
   line-height: 46rpx;
 }
 
 .nav-item.active{
-  border-right: 4rpx solid #3d6034;
-  color: #3d6034;
+  border-left: 10rpx solid #4fa34f;
+  color: #4fa34f;
   font-weight: bold;
+  background: #ffffff;
 
 }
 .right-content{

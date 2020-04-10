@@ -28,6 +28,7 @@
           <view class="info">
             <view class="goods-name">{{item.name}}</view>
             <view class="goods-des">{{item.descript}}</view>
+            <view class="goods-price">¥{{item.price}}/{{item.unit}}</view>
           </view>
           <view class="num">×{{item.num}}</view>
         </view>
