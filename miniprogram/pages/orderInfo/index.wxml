@@ -36,7 +36,7 @@
       </view>
     </view>
 
-    <view class="item-wrapper logistic">
+    <view class="item-wrapper logistic" wx:if="{{order.expressName}}">
       <view class="title">
         <text>物流信息</text> 
       </view>

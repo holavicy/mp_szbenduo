@@ -137,6 +137,10 @@ Page({
 
   //获取所有的商品
   getGoodsCount: function () {
+    this.setData({
+      onSaleGoodsNum:0,
+      offSaleGoodsNum:0
+    })
     const db = wx.cloud.database();
     const _ = db.command;
     const $ = db.command.aggregate

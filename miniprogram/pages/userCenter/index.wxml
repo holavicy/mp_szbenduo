@@ -103,7 +103,7 @@
     <view>请先登录,再进行操作</view>
     <view class="rule">
       <image src="../../images/icons/xuanze.png" wx:if="{{read}}" bindtap="setRead"></image>
-      <image src="../../images/icons/weixuanze.png" wx:else bindtap="setRead"></image>
+      <image src="../../images/icons/un_select.png" wx:else bindtap="setRead"></image>
       阅读并同意以下协议
       <navigator url="/rule/pages/login/index" hover-class="none" class="service-rule"> 服务协议</navigator></view>
   </view>

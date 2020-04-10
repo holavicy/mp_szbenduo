@@ -4,7 +4,7 @@
     <view class="address-item" wx:for="{{list}}" bindtap="toInfo" data-id="{{item._id}}">
       <view class="select" wx:if="{{type ==1}}" catchtap="selectAddress" data-id="{{item._id}}">
         <image src="../../../images/icons/xuanze.png" wx:if="{{id==item._id}}"></image>
-        <image src="../../../images/icons/weixuanze.png" wx:else></image>
+        <image src="../../../images/icons/un_select.png" wx:else></image>
       </view>
       <view class="info">
         <view class="address">{{(item.province_name || '')+' '+(item.city_name || '')+' '+(item.area_name || '')+' '+(item.detail || '')}}</view>

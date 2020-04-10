@@ -4,7 +4,7 @@
 
     <view class="select" bindtap="triggerSelect" data-select="{{goods.is_selected}}" data-id="{{goods._id}}">
       <image src="../../images/icons/un_select.png" wx:if="{{!goods.is_selected}}"></image>
-      <image src="../../images/icons/selected.png" wx:if="{{goods.is_selected}}"></image>
+      <image src="../../images/icons/xuanze.png" wx:if="{{goods.is_selected}}"></image>
     </view>
 
     <view class="delete" bindtap="deleteCart" data-id="{{goods._id}}">
@@ -13,7 +13,7 @@
   
   </view>
   <view class="goods-info" bindtap="toGoodsInfo" data-id="{{cart?goods.goods_id:goods._id}}">
-    <view class="delete-action" data-id="{{goods._id}}" wx:if="{{delGoods}}" catchtap="deleteGoods"><image src="../../images/icons/shanchu.png"></image></view>
+    <view class="delete-action" data-id="{{goods._id}}" wx:if="{{delGoods}}" catchtap="deleteGoods"><image src="../../images/icons/min.png"></image></view>
     <view class="image">
       <image src="{{goods.image}}"></image></view>
     <view class="right-info">
