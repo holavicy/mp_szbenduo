@@ -25,7 +25,7 @@
 
   <!-- 底部物流公司弹窗 -->
   <view class="bottom-layer" wx:if="{{companyLayer}}">
-    <view class="bottom-layer-bg" bindtap="closeLayer"></view>
+    <view class="bottom-layer-bg" bindtap="closeLayer" catchtouchmove="true"></view>
     <view class="bottom-layer-content">
 
       <view class="title">选择快递公司</view>

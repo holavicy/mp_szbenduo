@@ -7,7 +7,8 @@
         <text>收货地址</text>
       </view>
       <view class="content" wx:if="{{order.address_id}}">
-        <view class="address">{{(addressItem.province_name || '')+' '+(addressItem.city_name || '')+' '+(addressItem.area_name || '')+' '+(addressItem.detail || '')}}</view>
+        <view class="address">{{(addressItem.province_name || '')+' '+(addressItem.city_name || '')+' '+(addressItem.area_name || '')}}</view>
+        <view class="address">{{(addressItem.detail || '')}}</view>
         <view class="link-man">{{(addressItem.name || '')+(addressItem.sex==1?'女士':'先生')+' '+(addressItem.tel || '')}}</view>
       </view>
     </view>
@@ -22,6 +23,7 @@
           <view class="info">
             <view class="goods-name">{{item.name}}</view>
             <view class="goods-des">{{item.descript}}</view>
+            <view class="goods-price">¥{{item.price}}/{{item.unit}}</view>
           </view>
           <view class="num">×{{item.num}}</view>
         </view>
