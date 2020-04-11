@@ -15,7 +15,7 @@
 
 .empty image{
   display: block;
-  width: 154rpx;
+  width: 166rpx;
   height: 128rpx;
   box-sizing: border-box;
   margin-bottom: 40rpx;

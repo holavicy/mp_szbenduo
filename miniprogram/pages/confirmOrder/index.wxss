@@ -73,7 +73,6 @@
   flex-wrap: nowrap;
   border-bottom: 1rpx solid #E5E5E5;
   padding: 20rpx;
-  height: 160rpx;
   box-sizing: border-box;
 }
 .goods-item:last-child{
@@ -116,6 +115,15 @@
 .goods-item .info .goods-des{
   color: #888888;
   font-size: 24rpx;
+  max-height: 72rpx;
+  line-height: 36rpx;
+  overflow: hidden;
+  margin-bottom: 10rpx;
+}
+
+.goods-item .info .goods-price{
+  font-size: 24rpx;
+  color: #3d6034;
 }
 
 .confirm-order .bottom .info{

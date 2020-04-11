@@ -7,7 +7,8 @@
         <text>收货地址</text>
       </view>
       <view class="content" wx:if="{{order.address_id}}">
-        <view class="address">{{(addressItem.province_name || '')+' '+(addressItem.city_name || '')+' '+(addressItem.area_name || '')+' '+(addressItem.detail || '')}}</view>
+        <view class="address">{{(addressItem.province_name || '')+' '+(addressItem.city_name || '')+' '+(addressItem.area_name || '')}}</view>
+        <view class="address">{{(addressItem.detail || '')}}</view>
         <view class="link-man">{{(addressItem.name || '')+(addressItem.sex==1?'女士':'先生')+' '+(addressItem.tel || '')}}</view>
       </view>
     </view>
@@ -22,6 +23,7 @@
           <view class="info">
             <view class="goods-name">{{item.name}}</view>
             <view class="goods-des">{{item.descript}}</view>
+            <view class="goods-price">¥{{item.price}}/{{item.unit}}</view>
           </view>
           <view class="num">×{{item.num}}</view>
         </view>
@@ -35,6 +37,18 @@
         <switch checked="{{order.is_freight}}" disabled color="#3d6034"/>
       </view>
     </view>
+
+    <view class="item-wrapper logistic" wx:if="{{order.expressName}}">
+      <view class="title">
+        <text>物流信息</text> 
+      </view>
+      <view class="content">
+        <view>物流公司：{{order.expressName}}</view>
+        <view>物流单号：{{order.expressNo}}</view>
+      </view>
+    </view>
+
+
 
     <view class="item-wrapper summary-wrapper">
       <view class="title"><text>合计</text></view>
@@ -53,7 +67,8 @@
 
   <view class="bottom" wx:if="{{order.status != 5}}">
     <view class="button" bindtap="toOrderPay" wx:if="{{order.status == 1}}">去支付</view>
-    <view class="button" bindtap="toOrderPay" wx:if="{{order.status == 2}}">确认收货</view>
+     <view class="button" bindtap="toCreateFreight" wx:if="{{order.status == 2 && isAdmin == 1}}">去发货</view>
+    <view class="button" bindtap="confirmOrder" wx:if="{{order.status == 3}}">确认收货</view>
     <view class="button" bindtap="cancelOrder" wx:if="{{order.status != 5}}">取消订单</view>
   </view>
 </view>

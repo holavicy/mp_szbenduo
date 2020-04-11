@@ -1,2 +1,23 @@
 <!--rule/pages/login/index.wxml-->
-<text>rule/pages/login/index.wxml</text>
+<view class="rule-login">
+  <view class="rule-title">用户须知</view>
+
+  <view class="rule-content">
+    <view class="title">关于我们</view>
+    <view class="content">苏州本多贸易有限公司（以下简称“苏州本多”），苏州本多成立于2011年4月，是一家专注做饮品原料及相关饮料设备的公司，为客户提供饮料机器及原料的一站式采购服务。苏州本多通过对饮料机的专业了解，帮助客户采购性价比高的机器，并保证原料的品质，从价格、物流、服务等方面帮助客户解决饮品需求，帮助客户降低成本。</view>
+
+    <view class="title">平台介绍</view>
+    <view class="content">苏州本多饮品直销，是苏州本多提供给大客户在小程序端的采购商城，正品保证、品类齐全、公司仓库直接发货。</view>
+
+    <view class="title">使用用户</view>
+    <view class="content">本小程序只限开放给与苏州本多有合作的客户登陆使用，账号在与苏州本多合作后统一分配。</view>
+
+    <view class="title">联系我们</view>
+    <view class="content">
+      <view>李经理</view>
+      <view>电话：189-1326-2333</view>
+      <view>邮箱：1252662408@qq.com</view>
+    </view>
+  </view>
+
+</view>

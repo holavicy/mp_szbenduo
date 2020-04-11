@@ -207,6 +207,11 @@ Page({
       return
     }
 
+    wx.showLoading({
+      title: '',
+      mask: true
+    })
+
     let length = this.data.picturesList.length;
     let i = 0;
 
@@ -239,7 +244,11 @@ Page({
       this.submitRes(data);
   
     }).catch((error) => {
-      console.log(error)
+      console.log(error);
+      wx.hideLoading();
+      wx.showToast({
+        title: '客观别急,请稍后再试',
+      })
     })
   },
 
@@ -260,6 +269,7 @@ Page({
         success: (res) => {
 
           if (res.data.length > 0 && res.data[0]._id != data._id) {
+            wx.hideLoading();
             wx.showToast({
               title: '该商品名称已存在',
               icon: 'none'
@@ -274,6 +284,7 @@ Page({
               data: data,
               success: (res) => {
                 console.log(res);
+                wx.hideLoading()
 
                 if (res.stats.updated) {
                   wx.showToast({
@@ -283,27 +294,24 @@ Page({
                 }
               },
               fail: (err) => {
-                console.log(err)
+                console.log(err);
+                wx.hideLoading();
+                wx.showToast({
+                  title: '客观别急,请稍后再试',
+                })
               }
             })
           }
         }
       })
-
-
-
-      
-
     } else {
-
-
-      
       db.collection('goods').where({
         name: data.name
       }).get({
         success: (res) => {
 
           if (res.data.length > 0) {
+            wx.hideLoading();
             wx.showToast({
               title: '该商品名称已存在',
               icon: 'none'
@@ -316,14 +324,16 @@ Page({
             db.collection('goods').add({
               data: data,
               success: res => {
+                wx.hideLoading();
                 wx.showToast({
                   title: '新增商品成功',
                 })
-                wx.navigateTo({
-                  url: '/goods/pages/goodsList/index',
+                wx.navigateBack({
+                  
                 })
               },
               fail: err => {
+                wx.hideLoading();
                 wx.showToast({
                   icon: 'none',
                   title: '新增商品失败'
@@ -333,8 +343,6 @@ Page({
           }
         }
       })
-      
-
     }
     
   },

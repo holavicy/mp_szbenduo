@@ -1,0 +1,52 @@
+<!--pages/addAfterSaleFexNo/index.wxml-->
+<view class="add-afterSale-fexNo">
+
+  <view class="line-item">
+    <view class="item-left">快递公司</view>
+    <view class="item-right flex-between" bindtap="openLayer">
+      <view class="l {{companyName?'':'placeholder-class'}}">{{companyName?companyName:'请选择快递公司'}}</view>
+      <image class="right-icon" src="../../images/icons/list_btn_more@2x.png"></image>
+    </view>
+  </view>
+
+  <view class="line-item">
+    <view class="item-left">快递单号</view>
+    <view class="item-right">
+    <input class="fex-no" 
+    placeholder="请填写快递单号"
+    placeholder-class="placeholder-class"
+    value="{{fexNo}}"
+    maxlength="20"
+    bindinput="bindInput" />
+    </view>
+  </view>
+
+  <view class="btn-submit" bindtap="submitFn">确认发货</view>
+
+  <!-- 底部物流公司弹窗 -->
+  <view class="bottom-layer" wx:if="{{companyLayer}}">
+    <view class="bottom-layer-bg" bindtap="closeLayer" catchtouchmove="true"></view>
+    <view class="bottom-layer-content">
+
+      <view class="title">选择快递公司</view>
+
+      <view class="opntions-wrap"> 
+        <view class="options">
+          <view class="option-item {{companyId == item.key?'active':''}}" 
+                  wx:for="{{companyList}}" 
+                  wx:key="{{item.key}}"
+                  data-companyId="{{item.key}}"
+                  data-companyName="{{item.name}}"
+                  data-expressCode = "{{item.code}}"
+                  bindtap="setCompanyId" 
+                  >{{item.name}}</view>
+        </view>
+        
+      </view>
+    
+      <view class="bottom-btn" bindtap="closeLayer">关闭</view>
+      
+    </view>
+  </view>
+
+</view>

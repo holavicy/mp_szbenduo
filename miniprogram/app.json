@@ -23,7 +23,8 @@
     "pages/orderList/index",
     "pages/goodsInfo/index",
     "pages/confirmOrder/index",
-    "pages/orderInfo/index"
+    "pages/orderInfo/index",
+    "pages/createFreight/index"
   ],
   "subpackages": [
     {
@@ -54,7 +55,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#3d6034",
     "navigationBarTitleText": "苏州本多饮品原料直销",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "onReachBottomDistance": 50
   },
   "tabBar": {
     "selectedColor": "#3d6034",

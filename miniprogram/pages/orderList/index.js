@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      currIndex: options.status || ''
+      currIndex: options.status? Number(options.status) : ''
     })
   },
 
@@ -77,6 +77,7 @@ Page({
         status: status == 0 ? '' : status
       },
       success: (res) => {
+        console.log()
 
         if(res && res.result && res.result.list){
           this.setData({
@@ -106,5 +107,9 @@ Page({
     wx.navigateTo({
       url: '/pages/orderInfo/index?id='+id,
     })
+  },
+
+  bindscrolltolower: function(){
+    console.log(21)
   }
 })

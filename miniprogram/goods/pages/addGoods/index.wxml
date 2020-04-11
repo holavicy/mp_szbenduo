@@ -10,17 +10,17 @@
       <!-- 商品描述:descript -->
     <view class="form-item">
       <view class="form-title"><label>商品描述</label></view>
-      <view class="form-content"><textarea type="text" data-name="descript" placeholder="最多输入50个字符" maxlength="50" value="{{goodsItem.descript}}" bindinput="setGoodsItem"></textarea></view>
+      <view class="form-content"><textarea type="text" data-name="descript" placeholder="最多输入50个字符" maxlength="100" value="{{goodsItem.descript}}" bindinput="setGoodsItem"></textarea></view>
     </view>
     <!-- 商品库存:stock -->
     <view class="form-item">
       <view class="form-title"><label>库存</label></view>
-      <view class="form-content"><input type="number" data-name="stock" placeholder="请输入数字" value="{{goodsItem.stock}}" bindinput="setGoodsItem"></input></view>
+      <view class="form-content"><input type="digit" data-name="stock" placeholder="请输入数字" value="{{goodsItem.stock}}" bindinput="setGoodsItem"></input></view>
     </view>
     <!-- 价格:price -->
     <view class="form-item">
       <view class="form-title"><label>价格</label></view>
-      <view class="form-content"><input type="text" data-name="price" placeholder="请输入两位小数" value="{{goodsItem.price}}" bindinput="setGoodsItem"></input></view>
+      <view class="form-content"><input type="digit" data-name="price" placeholder="请输入两位小数" value="{{goodsItem.price}}" bindinput="setGoodsItem"></input></view>
     </view>
     <!-- 单位:unit -->
     <view class="form-item">
@@ -30,12 +30,12 @@
     <!-- 基础运费:basic_freight_price -->
     <view class="form-item">
       <view class="form-title"><label>基础运费</label></view>
-      <view class="form-content"><input type="text" data-name="base_freight_price" placeholder="请输入两位小数" value="{{goodsItem.base_freight_price}}" bindinput="setGoodsItem"></input></view>
+      <view class="form-content"><input type="digit" data-name="base_freight_price" placeholder="请输入两位小数" value="{{goodsItem.base_freight_price}}" bindinput="setGoodsItem"></input></view>
     </view>
     <!-- 增量运费:inc_freight_price -->
     <view class="form-item">
       <view class="form-title"><label>增量运费</label></view>
-      <view class="form-content"><input type="text" data-name="inc_freight_price" placeholder="请输入两位小数" value="{{goodsItem.inc_freight_price}}" bindinput="setGoodsItem"></input></view>
+      <view class="form-content"><input type="digit" data-name="inc_freight_price" placeholder="请输入两位小数" value="{{goodsItem.inc_freight_price}}" bindinput="setGoodsItem"></input></view>
     </view>
     <!-- 所属类别:cateId,categoryName -->
     <view class="form-item">

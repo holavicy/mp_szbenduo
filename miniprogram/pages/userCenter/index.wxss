@@ -18,6 +18,7 @@
   border-radius: 50%;
   border: 4rpx solid #FFFFFF;
   margin: 0 30rpx;
+  background: #ffffff;
 }
 
 .top .img image{
@@ -188,13 +189,14 @@ padding: 0 !important;
 }
 
 button[disabled]{
-  background: #1f431e !important;
+  background: #cccccc !important;
 }
 
 .modal-bottom button.border{
   background: #ffffff !important;
   color: #222222 !important;
-  border: 1rpx solid #222222 !important;
+  border: 2rpx solid #222222 !important;
+  box-sizing: border-box;
 }
 
 .rule{
@@ -216,4 +218,12 @@ button[disabled]{
   margin-left: 10rpx;
   text-decoration: underline;
   text-decoration-color: #3d6034;
+}
+
+.read-btn{
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

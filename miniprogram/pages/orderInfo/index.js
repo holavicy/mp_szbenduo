@@ -6,7 +6,8 @@ Page({
    */
   data: {
     id:'',
-    down: true
+    down: true,
+    isAdmin: 0
   },
 
   /**
@@ -30,6 +31,22 @@ Page({
    */
   onShow: function () {
     this.getList();
+
+    wx.cloud.callFunction({
+      name: 'checkAdmin',
+      success: (e) => {
+
+        if (e && e.result && e.result.data && e.result.data.length >= 1) {
+          this.setData({
+            isAdmin: 1
+          })
+        } else {
+          this.setData({
+            isAdmin: 2
+          })
+        }
+      }
+    })
   },
 
   getList: function () {
@@ -106,6 +123,13 @@ Page({
         console.log(err);
         wx.hideLoading()
       }
+    })
+  },
+
+  //去发货
+  toCreateFreight: function(){
+    wx.navigateTo({
+      url: '/pages/createFreight/index?id='+ this.data.id,
     })
   }
 })

@@ -1,5 +1,8 @@
 <!--miniprogram/pages/goodsInfo/index.wxml-->
-<view class="goods-info">
+<view class="goods-info" catchtouchmove="true">
+
+<scroll-view scroll-y="true" class="scroll-view">
+
   <swiper class="goods-images" indicator-dots="true"
           autoplay="true">
     <block wx:for="{{goodsInfo.imgList}}" wx:key="*this">
@@ -8,11 +11,13 @@
       </swiper-item>
     </block>
   </swiper>
+  
   <view class="info">
-    <view class="goods-price">售价  ¥<text class="price">{{goodsInfo.price}}</text>/{{goodsInfo.unit}}</view>
+    <view class="goods-price" wx:if="{{goodsInfo.price}}">¥<text class="price">{{goodsInfo.price}}</text>/{{goodsInfo.unit}}</view>
     <view class="goods-name">{{goodsInfo.name}}</view>
     <view class="goods-des">{{goodsInfo.descript}}</view>
   </view>
+</scroll-view>
 
   <view class="bottom" wx:if="{{dealer_id}}">
    <view class="num-change">
@@ -27,5 +32,4 @@
     <view class="button" bindtap="addToCart">加入购物车</view>
     <!-- <view class="button">立即购买</view> -->
   </view>
-  
 </view>

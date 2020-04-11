@@ -15,11 +15,11 @@ Page({
     onSaleGoodsNum:0,
     offSaleGoodsNum:0,
 
-    unPayOrderNum:1,
-    unFreightOrderNum:3,
-    unConfirmOrderNum:3,
-    finishedOrderNum:100,
-    totalOrderNum:190
+    unPayOrderNum:0,
+    unFreightOrderNum:0,
+    unConfirmOrderNum:0,
+    finishedOrderNum:0,
+    totalOrderNum:0
   },
 
   /**
@@ -54,9 +54,11 @@ Page({
 
     if (app.globalData.openid) {
       this.onGetOpenid();
-      this.getCateCount();
-      this.getGoodsCount();
+      // this.getCateCount();
+      // this.getGoodsCount();
+      // this.getOrderCount();
     }
+
   },
   confirmGetUserInfo:function(){
     this.setData({
@@ -108,6 +110,10 @@ Page({
                   isAdmin: 2
                 })
               }
+
+              this.getCateCount();
+              this.getGoodsCount();
+              this.getOrderCount();
             }
           })
         }
@@ -134,21 +140,20 @@ Page({
 
   //获取所有的商品
   getGoodsCount: function () {
+    this.setData({
+      onSaleGoodsNum:0,
+      offSaleGoodsNum:0
+    })
     const db = wx.cloud.database();
     const _ = db.command;
     const $ = db.command.aggregate
     // 查询当前用户所有的 counters
 
     db.collection('goods').aggregate()
-      .bucket({
-        groupBy: '$status',
-        boundaries: [1, 3, 4],
-        default: 'other',
-        output: {
-        
-          ids: $.push('$_id')
-        }
-      })
+    .group({
+      _id: '$status',
+      num: $.sum(1)
+    })
       .end().then((res) => {
         console.log(res);
 
@@ -157,13 +162,13 @@ Page({
         resList.map((item) => {
           if (item._id == 1) {
             this.setData({
-              onSaleGoodsNum: item.ids.length || 0,
+              onSaleGoodsNum: item.num || 0,
             })
           }
 
           if (item._id == 3) {
             this.setData({
-              offSaleGoodsNum: item.ids.length || 0,
+              offSaleGoodsNum: item.num || 0,
             })
           }
         })
@@ -179,4 +184,45 @@ Page({
   },
 
   //获取各类订单的数据
+
+  getOrderCount: function(){
+    const db = wx.cloud.database();
+    const $ = db.command.aggregate;
+    db.collection('order_list').aggregate()
+      .group({
+        _id: '$status',
+        num: $.sum(1)
+      })
+
+
+      .end().then((res) => {
+        console.log(res);
+
+        res.list.map((item) => {
+          if(item._id == 1){
+            this.setData({
+              unPayOrderNum: item.num
+            })
+          }
+
+          if (item._id == 2) {
+            this.setData({
+              unFreightOrderNum: item.num
+            })
+          }
+
+          if (item._id == 3) {
+            this.setData({
+              unConfirmOrderNum: item.num
+            })
+          }
+
+          if (item._id == 4) {
+            this.setData({
+              unConfirmOrderNum: item.num
+            })
+          }
+        })
+      })
+  }
 })

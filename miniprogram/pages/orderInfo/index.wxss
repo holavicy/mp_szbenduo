@@ -118,6 +118,12 @@
   font-size: 24rpx;
 }
 
+.goods-item .info .goods-price{
+  font-size: 24rpx;
+  color: #3d6034;
+}
+
+
 .confirm-order .bottom{
   display: flex;
   justify-content: flex-end;
@@ -172,9 +178,6 @@
   font-size: 28rpx;
   color: #222222;
   margin-bottom: 20rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .content .link-man{
@@ -185,4 +188,10 @@
 .item-wrapper .title text{
   color:#000000;
   font-weight: 500;
+}
+
+.logistic .content{
+  font-size: 28rpx;
+  color: #222222;
+  line-height: 60rpx;
 }

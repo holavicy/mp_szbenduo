@@ -1,5 +1,5 @@
 <!--miniprogram/pages/addressInfo/index.wxml-->
-<view class="address-info">
+<view class="address-info" catchtouchmove="true">
   <view class="item">
     <label class="title">姓名</label>
     <input type="text" placeholder="最多输入6个字符" value="{{item.name}}" class="content" maxlength="6" bindinput="keyInput" data-name="name"></input>
