@@ -67,6 +67,10 @@
   flex-grow: 0;
 }
 
+.bottom.login{
+  justify-content: flex-end;
+}
+
 .bottom .num-change{
   display: flex;
   justify-content: space-between;
@@ -97,6 +101,6 @@
   line-height: 100rpx;
   color: #ffffff;
   background: #3d6034;
-  width: 200rpx;
+  width: 220rpx;
   text-align: center;
 }

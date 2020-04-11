@@ -13,7 +13,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -27,13 +26,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      dealer_id: app.globalData.openid
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          console.log('scope.userInfo')
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              this.onGetOpenid()
+            }
+          })
+        } else{
+          this.setData({
+            dealer_id: -1
+          })
+        }
+      }
     })
-    if (app.globalData.openid){
-      this.getList();
-      this.getValidList();
-    }
+
   },
 
   getList: function(){
@@ -82,13 +92,21 @@ Page({
   },
 
   getValidList: function(){
+
     wx.cloud.callFunction({
       name: 'getValidCartList',
       success: res => {
+        console.log(res);
 
         if (res && res.result && res.result.list.length>0){
           this.setData({
-            totalGoodsPrice: Math.floor((res.result.list[0].totalGoodsPrice) * 100) / 100
+            totalGoodsPrice: Math.floor((res.result.list[0].totalGoodsPrice) * 100) / 100,
+            totalNum: (res.result.list[0].totalNum)
+          })
+        } else {
+          this.setData({
+            totalGoodsPrice: '0.00',
+            totalNum: 0
           })
         }
         
@@ -144,10 +162,45 @@ Page({
   },
 
   toConfirm: function(){
+    //判断是否选择了商品
+
+    if(this.data.totalNum<1){
+      wx.showToast({
+        title: '请选择商品',
+        icon:'none'
+      })
+      return
+    }
     wx.navigateTo({
       url: '/pages/confirmOrder/index',
     })
-  }
+  },
 
+  onGetOpenid: function () {
+    wx.cloud.callFunction({
+      name: 'login',
+      success: res => {
+
+        if (res && res.result && res.result.openid) {
+
+          this.setData({
+            dealer_id: res.result.openid
+          })
+
+          this.getList();
+          this.getValidList();
+        } else {
+          this.setData({
+            dealer_id: -1
+          })
+
+          wx.hideLoading()
+        }
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+  },
 
 })

@@ -47,10 +47,8 @@ Component({
     // dealer_id: app.globalData.openid
   },
 
-  attached: function(){
+  ready: function(){
     let app = getApp();
-    console.log(app);
-
     this.setData({
       dealer_id: app.globalData.openid
     })

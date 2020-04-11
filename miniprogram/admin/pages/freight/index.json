@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "area-picker": "../../components/areaPicker/index",
+    "bottom-modal": "../../components/bottomModal/index"
+  },
+  "navigationBarTitleText": "地址运费配置"
+}

@@ -1,7 +1,7 @@
 <!--miniprogram/pages/cart/index.wxml-->
 <view class="cart" catchtouchmove="true">
 
-  <scroll-view class="list" scroll-y="true" catchtouchmove="true">
+  <scroll-view class="list" scroll-y="true" catchtouchmove="true" wx:if="{{list.length>0}}">
     <view class="goods-group" wx:for="{{list}}" wx:for-item="group" wx:for-index="index" wx:if="{{list.length>=1}}">
       <view class="group-title" wx:if="{{group._id !== 1}}">
         <text>{{group._id == 3?'已下架':group._id == 2?'已失效':''}}</text>
@@ -31,5 +31,5 @@
 
   
 
-  <navigator wx:if="{{!dealer_id}}" open-type="switchTab" url="/pages/userCenter/index" hover-class="none"><view class="to-login">去登录</view></navigator>
+  <navigator wx:if="{{dealer_id == -1}}" open-type="switchTab" url="/pages/userCenter/index" hover-class="none"><view class="to-login">去登录</view></navigator>
 </view>

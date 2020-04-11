@@ -19,8 +19,8 @@
   </view>
 </scroll-view>
 
-  <view class="bottom" wx:if="{{dealer_id}}">
-   <view class="num-change">
+  <view class="bottom {{dealer_id?'':'login'}}">
+   <view class="num-change" wx:if="{{dealer_id}}">
       <image src="../../images/icons/min.png" 
             data-id="{{goodsInfo._id}}" data-num="{{goodsInfo.num}}" data-stock="{{goodsInfo.stock}}" data-type="1" data-gid = "{{goodsInfo.goods_id}}"
             catchtap="updateNum"></image>
@@ -29,7 +29,11 @@
             data-id="{{goodsInfo._id}}" data-num="{{goodsInfo.num}}" data-stock="{{goodsInfo.stock}}" data-type="2" data-gid = "{{goodsInfo.goods_id}}"
             catchtap="updateNum"></image>
     </view>
-    <view class="button" bindtap="addToCart">加入购物车</view>
+
+    <view class="button" bindtap="addToCart" wx:if="{{dealer_id}}">加入购物车</view>
+    <navigator open-type="switchTab" url="/pages/userCenter/index" hover-class="none" wx:else>
+    <view class="button" bindtap="toLogin">去登录</view>
+    </navigator>
     <!-- <view class="button">立即购买</view> -->
   </view>
 </view>

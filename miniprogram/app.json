@@ -48,6 +48,13 @@
       "pages": [
         "pages/login/index"
       ]
+    },
+    {
+      "root": "admin",
+      "pages": [
+        "pages/cityFreight/index",
+        "pages/freight/index"
+      ]
     }
   ],
   "window": {

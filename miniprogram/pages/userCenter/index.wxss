@@ -186,6 +186,9 @@ height: 74rpx !important;
 line-height: 74rpx !important;
 font-size: 30rpx !important;
 padding: 0 !important;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 button[disabled]{

@@ -1,0 +1,19 @@
+<!--miniprogram/address/pages/freight/index.wxml-->
+
+<view class="freight">
+  <view class="city">
+    <view class="title"> <text>订单金额：</text> <text class="btn">确定</text></view>
+    <view class="citys">
+      <view class="city-item {{item.selected?'active':''}}" wx:for="{{cityList}}" wx:key="*this" data-index="{{index}}"
+            bindtap="setCity">{{item.name}}</view>
+    </view>
+  </view>
+
+    <view class="city">
+    <view class="title"> <text>同城配送区域包括：</text> <text class="btn">确定</text></view>
+    <view class="citys">
+      <view class="city-item {{item.selected?'active':''}}" wx:for="{{cityList}}" wx:key="*this" data-index="{{index}}"
+            bindtap="setCity">{{item.name}}</view>
+    </view>
+  </view>
+</view>

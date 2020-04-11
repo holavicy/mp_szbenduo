@@ -20,6 +20,7 @@ App({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
+          console.log('scope.userInfo')
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
@@ -30,12 +31,6 @@ App({
         }
       }
     })
-
-    // wx.authorize({
-    //   scope: 'scope.address',
-    // })
-
-
   },
 
   onShow: function(){
@@ -66,22 +61,7 @@ App({
 
         if (res && res.result && res.result.openid) {
           this.globalData.openid = res.result.openid;
-
-          // wx.cloud.callFunction({
-          //   name: 'checkAdmin',
-          //   success: (e) => {
-
-          //     if (e && e.result && e.result.data && e.result.data.length >= 1) {
-          //       this.setData({
-          //         isAdmin: 1
-          //       })
-          //     } else {
-          //       this.setData({
-          //         isAdmin: 2
-          //       })
-          //     }
-          //   }
-          // })
+          console.log(this.globalData.openid)
         }
 
       },
