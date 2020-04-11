@@ -130,3 +130,10 @@
   color: #888888;
   margin-top: 40rpx;
 }
+
+.rule image{
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
+  margin-left: 20rpx;
+}

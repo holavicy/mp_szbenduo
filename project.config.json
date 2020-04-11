@@ -101,9 +101,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "同城配送配置",
 					"pathName": "admin/pages/cityFreight/index",
+					"query": "",
 					"scene": null
 				}
 			]

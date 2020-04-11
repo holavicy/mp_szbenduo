@@ -6,8 +6,8 @@ cloud.init({
 })
 
 const db = cloud.database();
-const $ = db.command.aggregate;
-const _ = db.command
+const _ = db.command;
+const $ = db.command.aggregate
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -16,7 +16,10 @@ exports.main = async (event, context) => {
 
   try {
     return await db.collection('address_freight_rule').where({
-      status: 1,
+      status:1,
+      provinces: _.elemMatch({
+        id: _.eq(event.provinceId)
+      })
     })
       .get()
 

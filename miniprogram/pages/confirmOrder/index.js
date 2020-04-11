@@ -11,7 +11,9 @@ Page({
     totalFreightPrice:0,
     totalGoodsPrice:0,
     totalPrice:0,
-    addressItem:{},
+    addressItem:null,
+    freeBaseAmount: -1,
+    canCityFreight: false,
     down:true //标志商品列表展开或收起
   },
 
@@ -23,16 +25,10 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getDefaultAmount();
     this.getList();
     this.getAddressInfo();
   },
@@ -66,7 +62,36 @@ Page({
       success: res => {
         this.setData({
           addressItem: res.result.data[0]
-        })
+        }, ()=>{
+          let p1 = this.checkCityFreight();
+          let p2 = this.getProvinceFreight();
+
+          Promise.all([p1,p2]).then((res)=>{
+            console.log(res);
+
+            this.computedFreightPrice();
+          })
+          // this.checkCityFreight();
+          // this.getProvinceFreight().then(()=>{
+          //   let isLogistic = this.data.isLogistic;
+          //   let totalGoodsPrice = this.data.totalGoodsPrice;
+          //   let freeBaseAmount = this.data.freeBaseAmount;
+          //   let initFreightPrice = this.data.initFreightPrice;
+          //   let freightPrice = this.data.freightPrice;
+
+          //   if(isLogistic){
+          //     freightPrice = 0
+          //   } else if (totalGoodsPrice >= freeBaseAmount){
+          //     freightPrice = 0;
+          //   } else {
+          //     freightPrice = initFreightPrice;
+          //   }
+
+          //   this.setData({
+          //     freightPrice: freightPrice
+          //   })
+          // });
+        });
       }
     })
   },
@@ -237,23 +262,10 @@ Page({
 
   switchChange:function(e){
     let isLogistic = e.detail.value;
-    let totalFreightPrice = 0,
-    totalPrice = 0;
-
-    if (isLogistic){
-      totalFreightPrice=0;
-    } else {
-      totalFreightPrice = this.data.initFreightPrice;
-    }
-
-    totalPrice = Math.floor((this.data.totalGoodsPrice + totalFreightPrice) * 100) / 100
-
-
     this.setData({
-      isLogistic: e.detail.value,
-      totalFreightPrice: totalFreightPrice,
-      totalPrice: totalPrice
+      isLogistic: e.detail.value
     })
+    this.computedFreightPrice();
   },
 
   scrollGoodsWrapper: function(){
@@ -270,14 +282,19 @@ Page({
         success: (res) => {
 
           let totalFreightPrice = Math.floor((res.result.list[0].totalFreightPrice) * 100) / 100;
+          let initTotalFreight = totalFreightPrice;
           let totalGoodsPrice = Math.floor((res.result.list[0].totalGoodsPrice) * 100) / 100;
           let totalNum = res.result.list[0].totalNum;
 
-          if (totalGoodsPrice >= 500) {
+          if (this.data.isLogistic) {
             totalFreightPrice = 0;
           }
 
-          if (this.data.isLogistic) {
+          if (totalGoodsPrice >= this.data.freeBaseAmount && this.data.freeBaseAmount!= -1) {
+            totalFreightPrice = 0;
+          }
+
+          if (!this.data.addressItem) {
             totalFreightPrice = 0;
           }
 
@@ -286,7 +303,7 @@ Page({
           this.setData({
             goodsList: res.result.list[0].goodsList,
             totalFreightPrice: totalFreightPrice,
-            initFreightPrice: totalFreightPrice,
+            initFreightPrice: initTotalFreight,
             totalGoodsPrice: totalGoodsPrice,
             totalPrice: totalPrice,
             totalNum: totalNum
@@ -394,6 +411,149 @@ Page({
     wx.showToast({
       title: '客观别急，请稍后再试',
       icon: 'none'
+    })
+  },
+
+  //根据地址和订单金额判断是否支持同城配送
+  checkCityFreight: function(){
+    let addressItem = this.data.addressItem;
+
+    return new Promise((resolve, reject) => {
+      if (addressItem && addressItem._id && addressItem.area_id) {
+        let id = addressItem.area_id;
+        wx.cloud.callFunction({
+          name: 'checkCityFreight',
+          data: {
+            id: id
+          },
+          success: (res) => {
+            let result = res.result.list[0];
+            let amount = result.amount;
+            let totalGoodsPrice = this.data.totalGoodsPrice
+
+            if (result.cityList.length > 0 && totalGoodsPrice >= amount) {
+
+              this.setData({
+                canCityFreight: true,
+                isLogistic:false
+              })
+
+              resolve()
+            } else {
+              this.setData({
+                canCityFreight: false,
+                isLogistic: false
+              })
+              resolve()
+            }
+          },
+          fail: (err) => {
+            console.log(err);
+
+            reject()
+          }
+        })
+      } else {
+        this.setData({
+          canCityFreight: false,
+          isLogistic: false
+        })
+
+        resolve()
+      }
+    })
+
+
+
+  },
+
+  //根据地址判获取免邮金额
+  getProvinceFreight: function(){
+    let provinceId = this.data.addressItem? this.data.addressItem.province_id:'';
+    let that = this;
+
+    return new Promise(function(reslove, reject){
+      if (provinceId) {
+        wx.cloud.callFunction({
+          name: 'getProvinceFreightRule',
+          data: {
+            provinceId: provinceId
+          },
+          success: (res) => {
+            if (res && res.result && res.result.data && res.result.data.length > 0) {
+              that.setData({
+                freeBaseAmount: res.result.data[0].amount
+              }, () => {
+                reslove()
+              })
+            } else {
+              that.setData({
+                freeBaseAmount: that.data.defaultAmount
+              }, ()=>{
+                reslove()
+              })
+            }
+          },
+          fail: (err) => {
+            console.log(err);
+            reject()
+          }
+        })
+      } else {
+        that.setData({
+          freeBaseAmount: that.data.defaultAmount
+        }, ()=>{
+          reslove();
+        })
+      }
+    })
+
+
+  },
+
+  //获取全国默认免邮金额
+  getDefaultAmount: function(){
+    wx.cloud.callFunction({
+      name:'getDefaultFreight',
+      success: (res) => {
+        console.log(res);
+
+        this.setData({
+          defaultAmount: res.result.data[0].amount
+        })
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+  },
+
+//计算运费的方法
+  computedFreightPrice: function(){
+    let isLogistic = this.data.idLogistic;
+    let freeBaseAmount = this.data.freeBaseAmount;
+    let totalGoodsPrice = this.data.totalGoodsPrice;
+    let initFreightPrice = this.data.initFreightPrice;
+
+    let freightPrice = this.data.totalFreightPrice;
+
+    if(isLogistic){
+      freightPrice = 0;
+    } else if (totalGoodsPrice>=freeBaseAmount){
+      freightPrice = 0
+    } else {
+      freightPrice = initFreightPrice
+    }
+
+    if(!this.data.addressItem){
+      freightPrice = 0
+    }
+
+
+    let totalPrice = Math.floor((totalGoodsPrice + freightPrice) * 100) / 100
+    this.setData({
+      totalFreightPrice: freightPrice,
+      totalPrice: totalPrice
     })
   }
 })

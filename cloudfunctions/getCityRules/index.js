@@ -15,9 +15,9 @@ exports.main = async (event, context) => {
   const openId = wxContext.OPENID;
 
   try {
-    return await db.collection('city_freight').where({
+    return await db.collection('city_freight_rule').where({
       status: 1
-    }).orderBy('create_time', 'desc')
+    })
       .get()
 
   } catch (e) {

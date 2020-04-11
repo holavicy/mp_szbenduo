@@ -7,8 +7,7 @@ Page({
    */
   data: {
     rules: [],
-    modalShow: false,
-    cityList: areas[9].subAreas[4].subAreas
+    modalShow: false
   },
 
   /**
@@ -31,32 +30,18 @@ Page({
       provinces.push(obj)
     })
 
-    this.setData({
-      provinceList: provinces
-    });
+    let [...initProvinces] = provinces;
 
-    this.getCityRules();
+    this.setData({
+      provinceList: provinces,
+      initProvinces: initProvinces
+    });
 
     this.getAddressRule();
   },
 
-  setCity: function (e) {
-    let index = e.currentTarget.dataset.index;
-
-    console.log(index);
-
-    let cityList = this.data.cityList;
-    cityList[index].selected = !cityList[index].selected;
-
-    this.setData({
-      cityList: cityList
-    })
-  },
-
   setProvince: function (e) {
     let index = e.currentTarget.dataset.index;
-
-    console.log(index);
 
     let provinceList = this.data.provinceList;
     provinceList[index].selected = !provinceList[index].selected;
@@ -145,8 +130,6 @@ Page({
       return
     }
 
-    console.log(rule);
-
     wx.showLoading();
 
     if (id) {
@@ -155,7 +138,6 @@ Page({
         data: rule,
         success: (res) => {
           wx.hideLoading();
-          console.log(res);
           this.getAddressRule();
         },
 
@@ -170,7 +152,6 @@ Page({
         data: rule,
         success: (res) => {
           wx.hideLoading();
-          console.log(res);
           this.getAddressRule();
         },
 
@@ -187,38 +168,25 @@ Page({
     wx.cloud.callFunction({
       name: 'getFreightRule',
       success: (res) => {
-        console.log(res);
-
         if (res && res.result && res.result.data) {
-          this.setData({
-            rules: res.result.data
-          })
 
-          let selectedProvince = [];
-          res.result.data.map((rule) => {
-            rule.provinces.map((province) => {
-              selectedProvince.push(province.id)
-            })
-          })
-
-          let selectedStr = selectedProvince.join(',');
-          console.log(selectedStr);
-
-          let provinces = this.data.provinceList;
-
-          let leftList = [];
-
-          provinces.map((p) => {
-            if (!selectedProvince.includes(p.id)) {
-              leftList.push(p)
+          let defaultRule = null;
+          let rules = [];
+          res.result.data.map((item)=>{
+            if(item.is_default){
+              defaultRule = item
+            } else {
+              rules.push(item)
             }
           })
 
-          console.log(leftList);
-
           this.setData({
-            provinceList: leftList
+            defaultRule: defaultRule,
+            rules: rules
           })
+
+          //更新剩余省份
+          this.setLeftProvince(this.data.initProvinces);
         }
       }
     })
@@ -237,6 +205,9 @@ Page({
       confirmColor: '#3d6034',
       success: (res) => {
         if (res.confirm) {
+          wx.showLoading({
+            mask: true
+          })
           if (id) {
             wx.cloud.callFunction({
               name: 'deleteFreightRule',
@@ -244,28 +215,84 @@ Page({
                 id: id
               },
               success: (res) => {
-                console.log(res);
                 this.getAddressRule();
+              },
+              complete: ()=> {
+                wx.hideLoading()
               }
             })
           } else {
+            wx.hideLoading()
             rules.splice(index, 1);
-
+            
             this.setData({
               rules: rules
             })
+
+            this.setLeftProvince(this.data.initProvinces);
+
+
           }
         }
       }
     })
   },
+  defaultAmount: function(e){
+    let amount = e.detail.value;
+    let defaultRule = this.data.defaultRule;
 
-  getCityRules: function () {
+    defaultRule.amount = Number(amount);
+
+    this.setData({
+      defaultRule: defaultRule
+    })
+  },
+  setDefaultAmount: function(){
+    wx.showLoading({
+      mask:true
+    })
+    let amount = Number(this.data.defaultRule.amount);
+
     wx.cloud.callFunction({
-      name: 'getCityRules',
+      name:'updateDefaultFreightAmount',
+      data:{
+        amount: amount
+      },
       success: (res) => {
-        console.log(res.result.data);
+
+        if(res && res.result && res.result.code == 0){
+          wx.hideLoading();
+          wx.showToast({
+            title: '提交成功',
+          })
+        }
+      },
+      fail: (err) => {
+        wx.hideLoading();
+        console.log(err)
       }
+    })
+  },
+  setLeftProvince: function (provinces){
+    let rules = this.data.rules;
+    let selectedProvince = [];
+    rules.map((rule) => {
+      rule.provinces.map((province) => {
+        selectedProvince.push(province.id)
+      })
+    })
+
+    let leftList = [];
+
+    provinces.map((p) => {
+      if (!selectedProvince.includes(p.id)) {
+        p.selected = false;
+        leftList.push(p)
+      }
+    })
+
+    this.setData({
+      provinceList: leftList
     })
   }
 })

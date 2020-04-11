@@ -1,22 +1,18 @@
 <!--miniprogram/address/pages/freight/index.wxml-->
 
 <view class="freight">
-  <view class="city">
-    <view class="title"> <text>同城配送区域包括：</text> <text class="btn">确定</text></view>
-    <view class="citys">
-      <view class="city-item {{item.selected?'active':''}}" wx:for="{{cityList}}" wx:key="*this" data-index="{{index}}"
-            bindtap="setCity">{{item.name}}</view>
-    </view>
-  </view>
   <view class="city rules">
     <view class="title"> <text>免邮规则：</text> <text class="btn" bindtap="newRule">新增</text></view>
     <view class="rule">
       <text>全国默认免邮需满</text>
-      <input value="{{defaultAmount}}"></input>
+      <input value="{{defaultRule.amount}}" bindinput="defaultAmount"></input>
       <text>元</text>
+      <image src="../../../images/icons/xuanze.png" 
+        data-index="{{index}}"
+        bindtap="setDefaultAmount"></image>
     </view>
 
-    <view class="rule cus-rule" wx:for="{{rules}}" wx:key = "*this">
+    <view class="rule cus-rule" wx:for="{{rules}}" wx:key = "*this" wx:if="{{!item.is_default}}">
 
       <view class="provinces"><text wx:for="{{item.provinces}}" wx:for-item="province" wx:key="*this" class="province-item active">{{province.name}}</text></view>
 

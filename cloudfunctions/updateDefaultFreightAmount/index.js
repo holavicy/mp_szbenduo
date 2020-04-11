@@ -12,11 +12,9 @@ const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
   event.update_time = db.serverDate();
-
-  delete event._id;
-  delete event.create_time;
-  return await db.collection('city_freight_rule').where({
-    status: 1
+  return await db.collection('address_freight_rule').where({
+    is_default: true,
+    status:1
   }).update({
     data: event
   }).then(res => {

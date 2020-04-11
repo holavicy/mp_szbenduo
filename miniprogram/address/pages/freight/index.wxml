@@ -1,15 +1,15 @@
 <!--miniprogram/address/pages/freight/index.wxml-->
 
-<view class="freight">
-  <view class="city">
+<view class="city-freight">
+  <view class="item-wrapper">
     <view class="title"> <text>同城配送区域包括：</text> <text class="btn">确定</text></view>
     <view class="citys">
       <view class="city-item {{item.selected?'active':''}}" wx:for="{{cityList}}" wx:key="*this" data-index="{{index}}"
             bindtap="setCity">{{item.name}}</view>
     </view>
   </view>
-  <view class="city rules">
-    <view class="title"> <text>免邮规则：</text> <text class="btn" bindtap="newRule">新增</text></view>
+  <view class="item-wrapper rules">
+    <view class="title"> <text>免邮规则：</text></view>
     <view class="rule">
       <text>全国默认免邮需满</text>
       <input value="{{defaultAmount}}"></input>

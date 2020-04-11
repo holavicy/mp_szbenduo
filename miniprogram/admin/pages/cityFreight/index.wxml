@@ -1,19 +1,32 @@
 <!--miniprogram/address/pages/freight/index.wxml-->
 
-<view class="freight">
-  <view class="city">
-    <view class="title"> <text>订单金额：</text> <text class="btn">确定</text></view>
+<view class="city-freight">
+  <view class="item-wrapper">
+
+    <view class="item-line">
+      <text class="item-title">订单金额</text>
+       <view class="item-content"><input class="amount" type="digit" placeholder="请输入两位小数" value="{{cityRule.amount}}" bindinput="amount"></input>
+    </view></view>
+  </view>
+
+  <view class="item-wrapper">
+    <view class="content">注：若输入200，则只有商品总价大于等于200元的订单可以选择同城配送；若输入0，则任意价格的订单都可以选择同城配送。</view>
+  </view>
+
+  <view class="item-wrapper">
+    <view class="title"> <text>同城配送区域包括</text></view>
     <view class="citys">
-      <view class="city-item {{item.selected?'active':''}}" wx:for="{{cityList}}" wx:key="*this" data-index="{{index}}"
+      <view class="city-item {{item.selected?'active':''}}" wx:for="{{cityRule.cityList}}" wx:key="*this" data-index="{{index}}"
             bindtap="setCity">{{item.name}}</view>
     </view>
   </view>
 
-    <view class="city">
-    <view class="title"> <text>同城配送区域包括：</text> <text class="btn">确定</text></view>
-    <view class="citys">
-      <view class="city-item {{item.selected?'active':''}}" wx:for="{{cityList}}" wx:key="*this" data-index="{{index}}"
-            bindtap="setCity">{{item.name}}</view>
-    </view>
+  <view class="item-wrapper">
+    <view class="content">注：当用户的收货地址在上面选中的地区内时，用户在确认订单页可选择是否同城配送，否则订单没有同城配送的选项。</view>
   </view>
+
+    <view class="btns">
+      <view class="button reset" bindtap="reset">重置</view>
+      <view class="button submit" bindtap="submit">提交</view>
+    </view>
 </view>

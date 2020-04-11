@@ -1,5 +1,5 @@
 /* miniprogram/address/pages/freight/index.wxss */
-.freight{
+.city-freight{
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
@@ -7,10 +7,12 @@
   color: #222222;
   background: #E5E5E5;
 }
-.city, .rules{
+
+.item-wrapper{
   background: #ffffff;
 }
-.freight .city .title{
+
+.city-freight .item-wrapper .title{
   height: 80rpx;
   line-height: 80rpx;
   border-bottom: 1rpx solid #E5E5E5;
@@ -18,115 +20,4 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.freight .city .title .btn {
-  height: 50rpx;
-  line-height: 50rpx;
-  text-align: center;
-  padding: 0 20rpx;
-  border-radius: 24rpx;
-  background: #3d6034;
-  color: #ffffff;
-}
-
-.citys, .provinces{
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20rpx;
-}
-.citys .city-item, .province-item{
-  height: 40rpx;
-  line-height: 40rpx;
-  text-align: center;
-  padding: 0 10rpx;
-  font-size: 24rpx;
-  border-radius: 4rpx;
-  margin: 10rpx 10rpx 0 0;
-  background:rgba(244,244,244,1);
-  color: #888888;
-}
-
-.citys .city-item.active, .province-item.active{
-  color: #FF5644;
-  border: 1rpx solid rgba(255,136,39,0.1);
-  background: rgba(252,246,236,1);
-}
-
-.city.rules{
-  margin-top: 20rpx;
-  padding: 0 0 20rpx 0;
-}
-
-.rule{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 20rpx;
-  box-shadow: #E5E5E5 0 0 10rpx;
-  padding: 20rpx;
-}
-
-.rule.cus-rule{
-  flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
-  padding: 0;
-}
-
-.rule.cus-rule .provinces{
-  border-bottom: 1rpx solid #E5E5E5;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.rule.cus-rule .amount{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20rpx;
-  box-sizing: border-box;
-}
-.rule.cus-rule .amount .info, .rule.cus-rule .amount .actions{
-  display: flex;
-  align-items: center;
-}
-.rule.cus-rule .amount image{
-  width: 30rpx;
-  height: 30rpx;
-  display: block;
-  margin-right: 20rpx;
-}
-
-.rule.cus-rule .amount input{
-  margin: 0 20rpx;
-}
-
-.rule input{
-  border: 1rpx solid #E5E5E5;
-  border-radius: 12rpx;
-  padding: 4rpx 20rpx;
-  text-align: center;
-  width: 200rpx;
-}
-
-.modal-title{
-  height: 80rpx;
-  border-bottom: 1rpx solid #E5E5E5;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 20rpx;
-  font-size: 24rpx;
-}
-
-.modal-title .active{
-  color:  #4fa34f
-}
-.empty-rule{
-  text-align: center;
-  color: #888888;
-  margin-top: 40rpx;
 }

@@ -16,7 +16,7 @@ exports.main = async (event, context) => {
 
   try {
     return await db.collection('address_freight_rule').where({
-      status: 1,
+      is_default: true
     })
       .get()
 
