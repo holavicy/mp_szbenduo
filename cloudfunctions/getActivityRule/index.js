@@ -14,12 +14,17 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
   const openId = wxContext.OPENID;
 
+  let options = {
+    status: 1,
+    type: event.type
+  }
+
+  if(event.start_status){
+    options.start_status= event.start_status
+  }
+
   try {
-    return await db.collection('activity_rule').aggregate().match({
-      status: 1,
-      type: event.type,
-      start_status:1
-    }).project({
+    return await db.collection('activity_rule').aggregate().match(options).project({
       start_date: 1,
       end_date:1,
       list:1,

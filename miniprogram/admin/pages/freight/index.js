@@ -138,6 +138,9 @@ Page({
         data: rule,
         success: (res) => {
           wx.hideLoading();
+          wx.showToast({
+            title: '提交成功',
+          })
           this.getAddressRule();
         },
 
@@ -152,6 +155,9 @@ Page({
         data: rule,
         success: (res) => {
           wx.hideLoading();
+          wx.showToast({
+            title: '提交成功',
+          })
           this.getAddressRule();
         },
 

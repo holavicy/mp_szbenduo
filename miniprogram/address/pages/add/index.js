@@ -240,6 +240,7 @@ Page({
 
     if(that.data.id){
       delete item._id;
+      delete item.create_time;
       wx.cloud.callFunction({
         name: 'updateAddress',
         data: {

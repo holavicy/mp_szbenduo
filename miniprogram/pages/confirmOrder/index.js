@@ -542,7 +542,8 @@ Page({
       wx.cloud.callFunction({
         name: 'getActivityRule',
         data: {
-          type: 1
+          type: 1,
+          start_status:1
         },
         success: (res) => {
           let rule = res.result.list[0];

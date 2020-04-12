@@ -281,6 +281,7 @@ Page({
             data.update_time = db.serverDate();
             delete data._id;
             delete data._openid;
+            delete data.create_time;
 
             db.collection('goods').doc(this.data.id).update({
               // data 传入需要局部更新的数据
