@@ -248,7 +248,7 @@ Page({
   },
 
   contactUs: function(){
-    let _phoneNum = '17768136760';
+    let _phoneNum = '18913262333';
     if (_phoneNum) {
       wx.makePhoneCall({
         phoneNumber: _phoneNum,
