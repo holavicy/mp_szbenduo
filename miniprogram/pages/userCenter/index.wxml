@@ -95,6 +95,7 @@
     <view class="action-list">
       <navigator class="item" hover-class="none" url="/admin/pages/cityFreight/index">同城配送配置<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
       <navigator class="item" hover-class="none" url="/admin/pages/freight/index">地址运费配置<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
+      <navigator class="item" hover-class="none" url="/admin/pages/saleConfig/index">满减配置<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
       <navigator class="item" hover-class="none" url="/address/pages/list/index">我的地址<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
     </view>
   </view>

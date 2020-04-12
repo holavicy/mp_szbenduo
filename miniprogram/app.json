@@ -53,7 +53,8 @@
       "root": "admin",
       "pages": [
         "pages/cityFreight/index",
-        "pages/freight/index"
+        "pages/freight/index",
+        "pages/saleConfig/index"
       ]
     }
   ],

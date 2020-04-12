@@ -1,0 +1,28 @@
+/* components/datePicker/index.wxss */
+.modal-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #E5E5E5;
+  height: 100rpx;
+  margin: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 36rpx;
+  color: #222222;
+}
+
+.modal-title .cancel{
+  font-size: 28rpx;
+}
+
+.modal-title .submit{
+  font-size: 28rpx;
+  color: #3d6034;
+}
+
+.picker-view-column{
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  font-size: 40rpx;
+}

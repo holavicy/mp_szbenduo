@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "date-picker": "../../components/datePicker/index",
+    "bottom-modal": "../../components/bottomModal/index"
+  },
+  "navigationBarTitleText": "满减配置"
+}

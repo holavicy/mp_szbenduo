@@ -1,0 +1,64 @@
+<!--miniprogram/admin/pages/saleConfig/index.wxml-->
+<view class="sale-config" catchtouchmove="true">
+  <scroll-view class="config-content" scroll-y="true" catchtouchmove="true">
+    <view class="item-wrapper">
+      <view class="title">活动类型</view>
+      <view class="content">满减</view>
+    </view>
+
+    <view class="item-wrapper">
+      <view class="title">活动开始时间</view>
+      <!-- <view class="content"><input disabled="true" placeholder="请选择时间" value="{{rule.start_time}}"></input></view> -->
+ 
+      <picker class="content" mode="date" value="{{rule.start_date}}" 
+              start="2015-09-01" end="2020-12-31" 
+              bindchange="bindStartDateChange">
+        <view class="picker">{{rule.start_date?rule.start_date:'请选择'}}</view>
+      </picker>
+    
+    </view>
+
+    <view class="item-wrapper">
+      <view class="title">活动结束时间</view>
+        <picker class="content" mode="date" value="{{rule.end_date}}" 
+          start="2015-09-01" end="2020-12-31" 
+          bindchange="bindEndDateChange">
+        <view class="picker">{{rule.end_date?rule.end_date:'请选择'}}</view>
+      </picker>
+    </view>
+
+    <view class="item-wrapper" style="margin-bottom:0">
+      <view class="title">活动规则</view>
+      <view class="content"></view>
+    </view>
+
+    <view class="rules-wrapper">
+      <view class="rule-item" wx:for="{{rule.list}}" wx:key="*this">
+        <view class="rule-content">满 
+        <input type="digit" placeholder="请输入限制金额" value="{{item.limitAmount}}" 
+                bindinput="limitAmount" data-index="{{index}}"></input> <view class="no-wrap"> 元,减</view> 
+        <input type="digit" placeholder="请输入减免金额"  value="{{item.cutAmount}}"
+                bindinput="cutAmount" data-index="{{index}}"></input>元</view>
+        <view class="actions">
+          <image src="../../../images/icons/min.png" catchtap="delRule" wx:if="{{index != 0}}" data-index="{{index}}"></image>
+          <image src="../../../images/icons/add.png" catchtap="addRule" wx:if="{{index<=9 && index == rule.list.length-1}}"></image>
+          
+          
+        </view>
+      </view>
+    </view>
+
+    <view class="item-wrapper">
+      <view class="title">开启活动</view>
+      <view class="content"><switch checked="{{rule.start_status == 1}}" color="#3d6034" bindchange="setStatus"></switch></view>
+    </view>
+  </scroll-view>
+  <view class="bottom">
+    <view class="">确定</view>
+  </view>
+  
+</view>
+
+<!-- <date-picker></date-picker> -->
+
+

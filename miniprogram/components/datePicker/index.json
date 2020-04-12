@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+      "bottom-modal": "../../components/bottomModal/index"
+  }
+  
+}
