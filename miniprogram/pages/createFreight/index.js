@@ -147,10 +147,18 @@ Page({
       data: _data,
       success: (res) => {
         console.log(res);
-        wx.hideLoading()
-        wx.navigateBack({
-          
+        wx.hideLoading();
+
+        wx.showToast({
+          title: '提交成功',
         })
+
+        setTimeout(function(){
+          wx.navigateBack({
+
+          })
+        }, 1000)
+
       },
       fail: (err) => {
         console.log(err);

@@ -18,52 +18,35 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getList();
+    this.checkAdmin().then((res) => {
+      console.log(res);
+      this.setData({
+        isAdmin: res.isAdmin
+      },()=>{
+        this.getList();
+      })
+    });
+    
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+  checkAdmin: function(){
+    return new Promise(( resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'checkAdmin',
+        success: (res) => {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+          if(res && res.result && res.result.data && res.result.data.length>0){
+            resolve({isAdmin:true})
+          } else {
+            resolve({ isAdmin: false })
+          }
+          
+        }
+      })
+    })
   },
 
   getList: function(){
@@ -71,13 +54,18 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+
+    let data = {
+      status: status == 0 ? '' : status
+    }
+
+    if(this.data.isAdmin){
+      data.isAdmin = true
+    }
     wx.cloud.callFunction({
       name:'getOrderList',
-      data:{
-        status: status == 0 ? '' : status
-      },
+      data: data,
       success: (res) => {
-        console.log()
 
         if(res && res.result && res.result.list){
           this.setData({

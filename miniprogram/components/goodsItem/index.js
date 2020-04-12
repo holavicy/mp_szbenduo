@@ -64,21 +64,53 @@ Component({
 
       const db = wx.cloud.database()
       const status = e.detail.value?1:3;
-      db.collection('goods').doc(id).update({
-        data: {
-          status: status
+      console.log(status)
+
+      wx.cloud.callFunction({
+        name:'updateGoodsStatus',
+        data:{
+          id:id,
+          status:status
         },
-        success: res => {
-          wx.showToast({
-            title: status==1? '上架成功':'下架成功',
-          })
-          this.triggerEvent("switchChange")
+        success: (res) => {
+          console.log(res);
+
+          if(res.result.code == 0){
+            wx.showToast({
+              title: status == 1 ? '上架成功' : '下架成功',
+            })
+            this.triggerEvent("switchChange")
+          }
         },
-        fail: err => {
-          icon: 'none',
-          console.error('[数据库] [更新记录] 失败：', err)
+        fail: (err) => {
+          console.log(err)
         }
       })
+      // db.collection('goods').doc(id).update({
+      //   data: {
+      //     status: status
+      //   },
+      //   success: res => {
+
+      //     if(res.stats.update>0){
+      //       wx.showToast({
+      //         title: status == 1 ? '上架成功' : '下架成功',
+      //       })
+      //       this.triggerEvent("switchChange")
+      //     } else {
+      //       wx.showToast({
+      //         title: status == 1 ? '上架失败' : '下架失败',
+      //         icon: 'none'
+      //       })
+      //     }
+      //     console.log(res)
+    
+      //   },
+      //   fail: err => {
+      //     icon: 'none',
+      //     console.error('[数据库] [更新记录] 失败：', err)
+      //   }
+      // })
     },
 
     //加入购物车

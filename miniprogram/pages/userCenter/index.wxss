@@ -63,6 +63,7 @@
   width: 25%;
   text-align: center;
   flex: 1;
+  position: relative;
 }
 
 .order .item image{
@@ -71,6 +72,23 @@
   display: block;
   margin: 0 auto;
   margin-bottom: 10rpx;
+}
+
+
+.order .item .num{
+  position: absolute;
+  top: -20rpx;
+  right: 20rpx;
+  min-width: 40rpx;
+  padding: 0 10rpx;
+  height: 40rpx;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  border-radius: 20rpx;
+  background: #3d6034;
+  color: #ffffff;
 }
 
 .action-list{
@@ -229,4 +247,23 @@ button[disabled]{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.not-login{
+  text-align: center;
+  font-size: 28rpx;
+  color: #888888;
+  padding: 20rpx;
+  margin-top: 180rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-login image{
+  width: 128rpx;
+  height: 128rpx;
+  display: block;
+  margin-bottom: 60rpx;
 }

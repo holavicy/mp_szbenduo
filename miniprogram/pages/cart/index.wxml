@@ -1,7 +1,7 @@
 <!--miniprogram/pages/cart/index.wxml-->
 <view class="cart" catchtouchmove="true">
 
-  <scroll-view class="list" scroll-y="true" catchtouchmove="true" wx:if="{{list.length>0}}">
+  <scroll-view class="list" scroll-y="true" catchtouchmove="true" wx:if="{{dealer_id != -1}}">
     <view class="goods-group" wx:for="{{list}}" wx:key="*this" wx:for-item="group" wx:for-index="index" wx:if="{{list.length>=1}}">
       <view class="group-title" wx:if="{{group._id !== 1}}">
         <text>{{group._id == 3?'已下架':group._id == 2?'已失效':''}}</text>

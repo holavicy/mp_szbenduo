@@ -24,6 +24,9 @@ Page({
     if (id) {
       //根据id获取商品详情
       this.getGoodsInfo(id);
+      wx.setNavigationBarTitle({
+        title: '编辑商品'
+      })
     }
 
   },
@@ -290,7 +293,11 @@ Page({
                   wx.showToast({
                     title: '更新成功',
                   })
-                  wx.navigateBack({})
+
+                  setTimeout(function(){
+                    wx.navigateBack({})
+                  }, 1000)
+                  
                 }
               },
               fail: (err) => {
@@ -328,9 +335,11 @@ Page({
                 wx.showToast({
                   title: '新增商品成功',
                 })
-                wx.navigateBack({
-                  
-                })
+
+                setTimeout(function(){
+                  wx.navigateBack({})
+                }, 1000)
+
               },
               fail: err => {
                 wx.hideLoading();

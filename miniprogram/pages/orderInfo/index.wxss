@@ -73,7 +73,6 @@
   flex-wrap: nowrap;
   border-bottom: 1rpx solid #E5E5E5;
   padding: 20rpx;
-  height: 160rpx;
   box-sizing: border-box;
 }
 .goods-item:last-child{
@@ -116,6 +115,9 @@
 .goods-item .info .goods-des{
   color: #888888;
   font-size: 24rpx;
+  max-height: 72rpx;
+  line-height: 36rpx;
+  overflow: hidden;
 }
 
 .goods-item .info .goods-price{
@@ -194,4 +196,25 @@
   font-size: 28rpx;
   color: #222222;
   line-height: 60rpx;
+}
+
+.order-status-wrapper{
+  height: 180rpx;
+  background-image: linear-gradient(to bottom right, #3d6034, rgb(36, 153, 114));
+  margin-bottom: 20rpx;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding:20rpx 0 20rpx 70rpx;
+}
+
+.order-status-wrapper .info{
+  font-size: 36rpx;
+  color: #ffffff;
+}
+
+.order-status-wrapper .sub-info{
+  font-size: 28rpx;
+  color: #ffffff;
 }

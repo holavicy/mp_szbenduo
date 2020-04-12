@@ -2,6 +2,10 @@
 <view class="confirm-order" catchtouchmove="true">
 
   <scroll-view class="order-wrapper" scroll-y="true" catchtouchmove="true">
+  <view class="order-status-wrapper">
+    <view class="info">{{orderStatusObj[order.status].info}}</view>
+    <view class="sub-info">{{orderStatusObj[order.status].subInfo}}</view>
+  </view>
     <view class="item-wrapper address-wrapper">
       <view class="title" bindtap="toAddress" data-id="{{addressId || ''}}">
         <text>收货地址</text>
@@ -55,21 +59,21 @@
       <view class="content">
         <view class="item"><text class="title">商品总数量</text><text>×{{order.total_num}}</text></view>
         <view class="item"><text class="title">商品总金额</text><text class="price">¥{{order.total_goods_price}}</text></view>
-        <view class="item" wx:if="{{order.cut_amount>0}}"><text class="title">商品总金额</text><text class="price">-¥{{order.cut_amount}}</text></view>
+        <view class="item" wx:if="{{order.cut_amount>0}}"><text class="title">满减金额</text><text class="price">-¥{{order.cut_amount}}</text></view>
         <view class="item">
           <text class="title">运费</text>
           <text class="price" wx:if="{{order.total_freight_price>0}}">¥{{order.total_freight_price}}</text>
-          <text wx:else class="sub-info">暂无运费</text>
+          <text wx:else class="sub-info">无运费</text>
         </view>
-        <view class="item"><text class="title">共需支付</text><text class="price">¥{{order.total_price}}</text></view>
+        <view class="item"><text class="title">总计</text><text class="price">¥{{order.total_price}}</text></view>
       </view>
     </view>
   </scroll-view>
 
-  <view class="bottom" wx:if="{{order.status != 5 && order.status != 4}}">
+  <view class="bottom" wx:if="{{order.status != 5 && order.status != 4 && !(order.status == 2 && isAdmin == 2)}}">
     <view class="button" bindtap="toOrderPay" wx:if="{{order.status == 1}}">去支付</view>
      <view class="button" bindtap="toCreateFreight" wx:if="{{order.status == 2 && isAdmin == 1}}">去发货</view>
     <view class="button" bindtap="confirmOrder" wx:if="{{order.status == 3}}">确认收货</view>
-    <view class="button" bindtap="cancelOrder" wx:if="{{order.status != 4 && order.status != 5}}">取消订单</view>
+    <view class="button" bindtap="cancelOrder" wx:if="{{order.status == 1 }}">取消订单</view>
   </view>
 </view>

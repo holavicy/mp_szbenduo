@@ -15,15 +15,18 @@
   <view wx:if="{{isAdmin == 2}}">
 
     <view class="order">
-      <navigator class="item" url="/pages/orderList/index?status=1" hover-class="none"><view ><image src="../../images/icons/un_pay.png"></image> 待付款</view></navigator>
-      <navigator class="item" url="/pages/orderList/index?status=2" hover-class="none"><view ><image src="../../images/icons/un_freight.png"></image> 待发货</view></navigator>
-      <navigator class="item" url="/pages/orderList/index?status=3" hover-class="none"><view ><image src="../../images/icons/freighted.png"></image> 待收货</view></navigator>
-      <navigator class="item" url="/pages/orderList/index?status=4" hover-class="none"><view ><image src="../../images/icons/checked.png"></image> 已完成</view></navigator>
+      <navigator class="item" url="/pages/orderList/index?status=1" hover-class="none"><view ><image src="../../images/icons/un_pay.png"></image> 待付款</view><view class="num" wx:if="{{unPayOrderNum>0}}">{{unPayOrderNum}}</view></navigator>
+      <navigator class="item" url="/pages/orderList/index?status=2" hover-class="none"><view ><image src="../../images/icons/un_freight.png"></image> 待发货</view><view class="num"  wx:if="{{unFreightOrderNum>0}}">{{unFreightOrderNum}}</view></navigator>
+      <navigator class="item" url="/pages/orderList/index?status=3" hover-class="none"><view ><image src="../../images/icons/freighted.png"></image> 待收货</view><view class="num"  wx:if="{{unConfirmOrderNum>0}}">{{unConfirmOrderNum}}</view></navigator>
+      <navigator class="item" url="/pages/orderList/index?status=4" hover-class="none"><view ><image src="../../images/icons/checked.png"></image> 已完成</view><view class="num"  wx:if="{{finishedOrderNum>0}}">{{finishedOrderNum}}</view></navigator>
     </view>
 
     <view class="action-list">
       <navigator class="item" hover-class="none" url="/pages/orderList/index">我的订单<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
       <navigator class="item" hover-class="none" url="/address/pages/list/index">我的地址<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
+      <view class="item" bindtap="contactUs">
+      联系我们<image src="../../images/icons/list_btn_more@2x.png"></image>
+      </view>
     </view>
 
   </view>
@@ -93,11 +96,17 @@
 
 
     <view class="action-list">
+      <navigator class="item" hover-class="none" url="/address/pages/list/index">我的地址<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
       <navigator class="item" hover-class="none" url="/admin/pages/cityFreight/index">同城配送配置<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
       <navigator class="item" hover-class="none" url="/admin/pages/freight/index">地址运费配置<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
       <navigator class="item" hover-class="none" url="/admin/pages/saleConfig/index">满减配置<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
-      <navigator class="item" hover-class="none" url="/address/pages/list/index">我的地址<image src="../../images/icons/list_btn_more@2x.png"></image></navigator>
+
     </view>
+  </view>
+
+  <view class="not-login" wx:if="{{isAdmin == 0}}">
+    <image src="../../images/icons/xiu.png"></image>
+    <view>点击上方一键登录，享受更优质的服务</view>
   </view>
 
 <modal wx:if="{{modalShow}}">

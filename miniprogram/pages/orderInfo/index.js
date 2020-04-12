@@ -7,7 +7,29 @@ Page({
   data: {
     id:'',
     down: true,
-    isAdmin: 0
+    isAdmin: 0,
+    orderStatusObj:{
+      1:{
+        info:'订单待支付',
+        subInfo:'请尽快支付哦'
+      },
+      2: {
+        info: '订单待发货',
+        subInfo: '客官别急，我们正在为您打包包裹'
+      },
+      3: {
+        info: '订单待收货',
+        subInfo: '包裹正在快马加鞭向您赶来'
+      },
+      4: {
+        info: '订单已完成',
+        subInfo: '欢迎再次下单哦'
+      },
+      5: {
+        info: '订单已取消',
+        subInfo: '期待下次为您服务'
+      },
+    }
   },
 
   /**
@@ -121,7 +143,9 @@ Page({
                 title: '订单已取消',
               })
 
-              wx.navigateBack({})
+              setTimeout(function(){
+                wx.navigateBack({})
+              },1000)
             },
 
             fail: (err) => {
@@ -160,10 +184,17 @@ Page({
                 status: 3
               },
               success: (res) => {
-                wx.navigateBack({
-                  
+
+                wx.showToast({
+                  title: '发货成功',
                 })
-                console.log(res)
+
+                setTimeout(function(){
+                  wx.navigateBack({
+
+                  })
+                }, 1000)
+
               },
               complete: () => {
                 wx.hideLoading()
@@ -247,6 +278,7 @@ Page({
   },
 
   confirmOrder: function(){
+    console.log(1)
     wx.showModal({
       title: '确认收货',
       content: '确定已收到包裹？',

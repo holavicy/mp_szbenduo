@@ -14,13 +14,21 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
   const openId = wxContext.OPENID;
 
-  try {
-    return await db.collection('address_list').where({
-      status: 1,
-      dealer_id: openId
-    }).orderBy('create_time', 'desc').limit(1000)
-      .get()
+  let options = {}
 
+  if(!event.isAdmin){
+    options.dealer_id = openId
+  }
+
+  try {
+    return await db.collection('order_list').aggregate().match(options).limit(1000)
+      .group({
+        _id: '$status',
+        num: $.sum(1)
+      })
+      .end()
+      .then(res => { return res })
+      .catch(err => console.error(err))
   } catch (e) {
     console.log(e)
   }

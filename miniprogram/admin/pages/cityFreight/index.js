@@ -35,6 +35,9 @@ let cityRule = this.data.cityRule;
   },
 
   getCityRules: function () {
+    wx.showLoading({
+      title: '',
+    })
     wx.cloud.callFunction({
       name: 'getCityRules',
       success: (res) => {
@@ -42,6 +45,9 @@ let cityRule = this.data.cityRule;
         this.setData({
           cityRule: res.result.data[0]
         })
+      },
+      complete: ()=>{
+        wx.hideLoading()
       }
     })
   },
@@ -61,7 +67,12 @@ let cityRule = this.data.cityRule;
         wx.showToast({
           title: '提交成功',
           mask: true
-        })
+        });
+        setTimeout(function () {
+          wx.navigateBack({
+
+          })},1000)
+
       },
       fail: (err) => {
         console.log(err)

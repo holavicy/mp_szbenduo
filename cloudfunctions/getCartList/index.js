@@ -20,7 +20,9 @@ exports.main = async (event, context) => {
       dealer_id: openId
     }).project({
       status: 0
-    })
+      }).sort({
+        create_time: -1
+      })
       .lookup({
         from: 'goods',
         let: {
@@ -57,7 +59,7 @@ exports.main = async (event, context) => {
         })
       }).sort({
         _id: 1
-      })
+      }).limit(1000)
       .end()
       .then(res => { return res })
       .catch(err => console.error(err))

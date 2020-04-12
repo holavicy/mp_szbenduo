@@ -120,7 +120,7 @@ Page({
 
   deleteGoods: function(e){
     let status = e.currentTarget.dataset.status;
-
+    let content = '确定清空所有' + (status == 3?'下架':status == 2?'失效':'')+'商品吗？'
     wx.showModal({
       content: content,
       confirmColor:'#3d6034',

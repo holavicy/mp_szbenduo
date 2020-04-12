@@ -104,23 +104,45 @@ Page({
       confirmColor:'#3d6034',
       success(res) {
         if (res.confirm) {
+          wx.showLoading({
+            title: '',
+            mask: true
+          })
           wx.cloud.callFunction({
             name: 'deleteAddress',
             data: {
               id: that.data.id
             },
             success: res => {
+              wx.hideLoading();
 
               if (res.result.code == 0) {
-
-                wx.navigateBack({
-                  
+                wx.showToast({
+                  title: '删除成功',
                 })
+
+                setTimeout(function(){
+                  wx.navigateBack({
+
+                  })
+                }, 1000)
+
+              
               } else {
+                wx.hideLoading();
                 wx.showToast({
                   title: '删除失败',
+                  icon:'none'
                 })
               }
+            },
+            fail: (err) => {
+              console.log(err)
+              wx.hideLoading();
+              wx.showToast({
+                title: '删除失败',
+                icon:'none'
+              })
             }
           })
         } else if (res.cancel) {
@@ -228,10 +250,19 @@ Page({
           wx.hideLoading()
 
           if (res.result.code == 0) {
-            wx.navigateBack({})
+            wx.showToast({
+              title: '更新成功',
+            })
+
+            setTimeout(function () {
+              wx.navigateBack({
+
+              })
+            }, 1000)
           } else {
             wx.showToast({
               title: '更新失败',
+              icon:'none'
             })
           }
         },
@@ -239,7 +270,8 @@ Page({
           console.log(err);
           wx.hideLoading();
           wx.showToast({
-            title: '保存失败',
+            title: '更新失败',
+            icon: 'none'
           })
         }
       })
@@ -253,10 +285,19 @@ Page({
           console.log(res)
           wx.hideLoading()
           if (res.result.code == 0) {
-            wx.navigateBack({})
+            wx.showToast({
+              title: '新增成功',
+            })
+
+            setTimeout(function () {
+              wx.navigateBack({
+
+              })
+            }, 1000)
           } else {
             wx.showToast({
               title: '新增失败',
+              icon:'none'
             })
           }
         }

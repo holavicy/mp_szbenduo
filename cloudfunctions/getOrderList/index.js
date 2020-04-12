@@ -14,8 +14,10 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
   const openId = wxContext.OPENID;
 
-  let options = {
-    dealer_id: openId
+  let options = {};
+
+  if(!event.isAdmin){
+    options.dealer_id = openId
   }
 
   if (event.status) {

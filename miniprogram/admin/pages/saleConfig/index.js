@@ -179,10 +179,16 @@ Page({
         data:rule,
         success: (res) => {
           wx.hideLoading();
-   
-          wx.navigateBack({
-            
+
+          wx.showToast({
+            title: '提交成功',
           })
+
+          setTimeout( function(){
+            wx.navigateBack({})
+          },1000)
+   
+
         },
         fail: (err) => {
           console.log(err);

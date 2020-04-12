@@ -10,9 +10,9 @@
   </view>
 
   <view class="goods-wrapper" wx:if="{{list.length>0}}">
-    <view class="left-nav">
+    <scroll-view class="left-nav" scroll-y="true">
       <view wx:for="{{list}}" wx:key="index" class="nav-item {{selectedIndex == index?'active':''}}" data-index="{{index}}"     bindtap="setShowList">{{item.name}}</view>
-    </view>
+    </scroll-view>
 
     <scroll-view class="right-content" scroll-y="true" catchtouchmove="{{true}}">
       <goods-item cus-class="item" wx:for="{{showList}}" wx:for-item="goods" wx:for-index="i" wx:key="i" goods="{{goods}}" toCart="{{true}}"></goods-item>

@@ -1,6 +1,6 @@
 <!--rule/pages/login/index.wxml-->
 <view class="rule-login" catchtouchmove="true">
-  <scroll-view scroll-y="true" catchtouchmove="true">
+  <scroll-view scroll-y="true">
 
     <view class="rule-title">用户须知</view>
 

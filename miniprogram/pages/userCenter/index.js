@@ -155,7 +155,6 @@ Page({
       num: $.sum(1)
     })
       .end().then((res) => {
-        console.log(res);
 
         let resList = res.list;
 
@@ -186,20 +185,24 @@ Page({
   //获取各类订单的数据
 
   getOrderCount: function(){
-    const db = wx.cloud.database();
-    const $ = db.command.aggregate;
-    db.collection('order_list').aggregate()
-      .group({
-        _id: '$status',
-        num: $.sum(1)
-      })
+    this.setData({
+      unPayOrderNum: 0,
+      unFreightOrderNum: 0,
+      unConfirmOrderNum: 0,
+      finishedOrderNum: 0
+    })
+    let isAdmin = this.data.isAdmin;
 
+    isAdmin = isAdmin==2?false:isAdmin == 1?true:false
+    wx.cloud.callFunction({
+      name:'getOrderCount',
+      data:{
+        isAdmin: isAdmin
+      },
+      success: (res) => {
 
-      .end().then((res) => {
-        console.log(res);
-
-        res.list.map((item) => {
-          if(item._id == 1){
+        res.result.list.map((item) => {
+          if (item._id == 1) {
             this.setData({
               unPayOrderNum: item.num
             })
@@ -219,10 +222,43 @@ Page({
 
           if (item._id == 4) {
             this.setData({
-              unConfirmOrderNum: item.num
+              finishedOrderNum: item.num
             })
           }
         })
+      }
+    })
+  },
+
+  getOrderCount1: function(){
+    const db = wx.cloud.database();
+    const $ = db.command.aggregate;
+    db.collection('order_list').aggregate()
+      .group({
+        _id: '$status',
+        num: $.sum(1)
       })
+
+
+      .end().then((res) => {
+        console.log(res);
+
+
+      })
+  },
+
+  contactUs: function(){
+    let _phoneNum = '17768136760';
+    if (_phoneNum) {
+      wx.makePhoneCall({
+        phoneNumber: _phoneNum,
+        success: function () {
+          console.log("拨打电话成功！")
+        },
+        fail: function () {
+          console.log("拨打电话失败！")
+        }
+      })
+    }
   }
 })

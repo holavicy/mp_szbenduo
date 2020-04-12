@@ -117,4 +117,7 @@
 .goods-item .info .goods-des{
   color: #888888;
   font-size: 24rpx;
+  max-height: 72rpx;
+  line-height: 36rpx;
+  overflow: hidden;
 }
