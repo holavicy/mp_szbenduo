@@ -55,6 +55,7 @@
       <view class="content">
         <view class="item"><text class="title">商品总数量</text><text>×{{order.total_num}}</text></view>
         <view class="item"><text class="title">商品总金额</text><text class="price">¥{{order.total_goods_price}}</text></view>
+        <view class="item" wx:if="{{order.cut_amount>0}}"><text class="title">商品总金额</text><text class="price">-¥{{order.cut_amount}}</text></view>
         <view class="item">
           <text class="title">运费</text>
           <text class="price" wx:if="{{order.total_freight_price>0}}">¥{{order.total_freight_price}}</text>
@@ -65,10 +66,10 @@
     </view>
   </scroll-view>
 
-  <view class="bottom" wx:if="{{order.status != 5}}">
+  <view class="bottom" wx:if="{{order.status != 5 && order.status != 4}}">
     <view class="button" bindtap="toOrderPay" wx:if="{{order.status == 1}}">去支付</view>
      <view class="button" bindtap="toCreateFreight" wx:if="{{order.status == 2 && isAdmin == 1}}">去发货</view>
     <view class="button" bindtap="confirmOrder" wx:if="{{order.status == 3}}">确认收货</view>
-    <view class="button" bindtap="cancelOrder" wx:if="{{order.status != 5}}">取消订单</view>
+    <view class="button" bindtap="cancelOrder" wx:if="{{order.status != 4 && order.status != 5}}">取消订单</view>
   </view>
 </view>

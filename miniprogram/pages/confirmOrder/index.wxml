@@ -23,7 +23,7 @@
         <text>商品列表</text>
         <view wx:if="{{goodsList.length>1}}" bindtap="scrollGoodsWrapper" class="btn">{{down?'收起列表':'展开列表'}}</view></view>
       <view class="content {{down?'':'up'}}">
-        <view class="goods-item" wx:for="{{goodsList}}" bindtap="toGoodsInfo" data-id="{{item.goods_id}}">
+        <view class="goods-item" wx:for="{{goodsList}}" wx:key="*this" bindtap="toGoodsInfo" data-id="{{item.goods_id}}">
           <view class="image"><image src="{{item.image}}"></image></view>
           <view class="info">
             <view class="goods-name">{{item.name}}</view>
@@ -48,6 +48,7 @@
       <view class="content">
         <view class="item"><text class="title">商品总数量</text><text>×{{totalNum}}</text></view>
         <view class="item"><text class="title">商品总金额</text><text class="price">¥{{totalGoodsPrice}}</text></view>
+        <view class="item" wx:if="{{cutAmount>0}}"><text class="title">满减金额</text><text class="price">-¥{{cutAmount}}</text></view>
         <view class="item">
           <text class="title">运费</text>
           <text class="sub-info" wx:if="{{!addressItem.province_id}}">请选择收货地址</text>

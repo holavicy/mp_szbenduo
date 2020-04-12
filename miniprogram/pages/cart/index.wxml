@@ -2,14 +2,14 @@
 <view class="cart" catchtouchmove="true">
 
   <scroll-view class="list" scroll-y="true" catchtouchmove="true" wx:if="{{list.length>0}}">
-    <view class="goods-group" wx:for="{{list}}" wx:for-item="group" wx:for-index="index" wx:if="{{list.length>=1}}">
+    <view class="goods-group" wx:for="{{list}}" wx:key="*this" wx:for-item="group" wx:for-index="index" wx:if="{{list.length>=1}}">
       <view class="group-title" wx:if="{{group._id !== 1}}">
         <text>{{group._id == 3?'已下架':group._id == 2?'已失效':''}}</text>
         <text class="delete-goods" data-status="{{group._id}}" 
               bindtap="deleteGoods">清空{{group._id == 3?'下架':group._id == 2?'失效':''}}商品</text>
       </view>
       <goods-item class="goods-item {{group._id == 1 ?'':'disabled'}}" cus-class="item" 
-                  wx:for="{{group.goodsList}}" wx:for-item="goods" wx:for-index="gIndex" 
+                  wx:for="{{group.goodsList}}" wx:key="*this" wx:for-item="goods" wx:for-index="gIndex" 
                   goods="{{goods}}" numChange="{{group._id == 1}}" topAction="{{group._id == 1}}" cart="true"
                   bind:selectSuccess = "reloadPage"
                   bind:deleteSuccess = "reloadPage"

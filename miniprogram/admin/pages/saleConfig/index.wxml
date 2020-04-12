@@ -54,7 +54,7 @@
     </view>
   </scroll-view>
   <view class="bottom">
-    <view class="">确定</view>
+    <view class="btn" bindtap="submitRule">确定</view>
   </view>
   
 </view>

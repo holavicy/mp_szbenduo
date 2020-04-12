@@ -17,18 +17,14 @@ exports.main = async (event, context) => {
   try {
     return await db.collection('activity_rule').aggregate().match({
       status: 1,
-      type: event.type
-    }).project({
-      start_date: $.dateToString({
-        date: '$start_date',
-        format: '%Y-%m-%d'
-      }),
-      end_date: $.dateToString({
-        date: '$end_date',
-        format: '%Y-%m-%d'
-      }),
-      list:1,
+      type: event.type,
       start_status:1
+    }).project({
+      start_date: 1,
+      end_date:1,
+      list:1,
+      start_status:1,
+      type:1
     })
       .end()
       .then(res => { return res })

@@ -23,13 +23,15 @@ Page({
   },
 
   getActivityRule: function(){
+    wx.showLoading({
+      title: '',
+    })
     wx.cloud.callFunction({
       name:'getActivityRule',
       data:{
         type:1
       },
       success: (res) => {
-        console.log(res);
         let rule = res.result.list[0];
 
         if(rule.list.length<1){
@@ -122,5 +124,73 @@ Page({
     this.setData({
       rule:rule
     })
+  },
+
+  submitRule: function(){
+    let rule = this.data.rule;
+
+    if(!rule.start_date){
+      wx.showToast({
+        title: '请选择活动开始时间',
+        icon:'none'
+      });
+      return
+    }
+
+    if (!rule.end_date) {
+      wx.showToast({
+        title: '请选择活动结束时间',
+        icon: 'none'
+      });
+      return
+    }
+
+    let flag = true;
+
+    rule.list.map((item, index) => {
+      if (!item.limitAmount && item.limitAmount !== 0){
+        wx.showToast({
+          title: '请填写第'+(index+1)+'个规则的限制金额',
+          icon: 'none'
+        });
+        flag = false;
+        return
+      }
+
+      if (!item.cutAmount) {
+        wx.showToast({
+          title: '请填写第' + (index + 1) + '个规则的优惠金额',
+          icon: 'none'
+        });
+        flag = false;
+        return
+      }
+    })
+
+    if (flag) {
+
+      wx.showLoading({
+        title: '',
+        mask: true
+      })
+
+      wx.cloud.callFunction({
+        name:'updateActiveRule',
+        data:rule,
+        success: (res) => {
+          wx.hideLoading();
+   
+          wx.navigateBack({
+            
+          })
+        },
+        fail: (err) => {
+          console.log(err);
+          wx.hideLoading()
+        }
+      })
+
+
+    }
   }
 })

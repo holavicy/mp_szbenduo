@@ -29,7 +29,6 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          console.log('scope.userInfo')
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
@@ -53,12 +52,10 @@ Page({
     wx.cloud.callFunction({
       name: 'getCartList',
       success: res => {
-        console.log(res)
 
         res.result.list.map((group) => {
           if(group._id == 1){
             group.goodsList.map((goods) => {
-              console.log(goods.num, goods.stock);
 
               if(goods.num > goods.stock){
                 //静默将该商品的num 改成 stock
@@ -96,7 +93,6 @@ Page({
     wx.cloud.callFunction({
       name: 'getValidCartList',
       success: res => {
-        console.log(res);
 
         if (res && res.result && res.result.list.length>0){
           this.setData({
@@ -124,7 +120,7 @@ Page({
 
   deleteGoods: function(e){
     let status = e.currentTarget.dataset.status;
-    let content = '确定删除所有' + (status == 2 ? '无效' : status == 3 ? '下架' : '') + '商品？';
+
     wx.showModal({
       content: content,
       confirmColor:'#3d6034',
