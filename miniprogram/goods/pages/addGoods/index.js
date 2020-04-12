@@ -283,14 +283,15 @@ Page({
             delete data._openid;
             delete data.create_time;
 
-            db.collection('goods').doc(this.data.id).update({
-              // data 传入需要局部更新的数据
-              data: data,
+            wx.cloud.callFunction({
+              name:'updateGoodsInfo',
+              data:{
+                id: this.data.id,
+                item: data
+              },
               success: (res) => {
                 console.log(res);
-                wx.hideLoading()
-
-                if (res.stats.updated) {
+                if(res && res.result && res.result.code == 0){
                   wx.showToast({
                     title: '更新成功',
                   })
@@ -298,15 +299,18 @@ Page({
                   setTimeout(function(){
                     wx.navigateBack({})
                   }, 1000)
-                  
+                } else {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '客观别急,请稍后再试',
+                  })
                 }
               },
               fail: (err) => {
-                console.log(err);
                 wx.hideLoading();
                 wx.showToast({
                   title: '客观别急,请稍后再试',
-                })
+                }) 
               }
             })
           }
