@@ -48,10 +48,14 @@ Component({
   },
 
   ready: function(){
-    let app = getApp();
-    this.setData({
-      dealer_id: app.globalData.openid
-    })
+    
+    setTimeout(()=>{
+      let app = getApp();
+      this.setData({
+        dealer_id: app.globalData.openid
+      })
+    },1000)
+
   },
 
   /**
