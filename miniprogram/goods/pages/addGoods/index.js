@@ -258,6 +258,7 @@ Page({
   //存储至数据库
   submitRes: function(data){
     const db = wx.cloud.database();
+    const _ = db.command
     data.image = this.data.pictureCloudList[0];
     data.images = this.data.pictureCloudList.join(',');
     data.price = Number(data.price);
@@ -267,7 +268,8 @@ Page({
 
     if(this.data.id){
       db.collection('goods').where({
-        name: data.name
+        name: data.name,
+        status:_.neq(2)
       }).get({
         success: (res) => {
 

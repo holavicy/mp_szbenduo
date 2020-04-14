@@ -58,7 +58,8 @@ Page({
 
   const db = wx.cloud.database();
     db.collection('category').where({
-      name: categoryName
+      name: categoryName,
+      status:1
     }).get({
     success: (res) => {
       console.log(res);

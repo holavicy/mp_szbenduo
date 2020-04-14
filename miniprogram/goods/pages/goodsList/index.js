@@ -36,24 +36,37 @@ Page({
 
   //获取商品列表
   getList: function(){
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
+    wx.showLoading({
+      title: '加载中',
+    })
 
     let status = this.data.currIndex==0?1:3
-    db.collection('goods').where({
-      status: status
-    }).orderBy('create_time', 'desc').get({
-      success: res => {
-        console.log(res.data);
+    wx.cloud.callFunction({
+      name:'getGoodsList',
+      data:{
+        status: status
+      },
+      success: (res) => {
+        if(res && res.result && res.result.data && res.result.data.length>0){
+          console.log(1)
+          this.setData({
+            goodsList: res.result.data
+          })
+        } else {
+          console.log(2)
+          this.setData({
+            goodsList: []
+          })
+        }
+      },
+      fail:(err)=>{
+        console.log(err);
         this.setData({
-          goodsList: res.data
+          goodsList: []
         })
       },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询商品失败'
-        })
+      complete: () => {
+        wx.hideLoading();
       }
     })
   },
