@@ -86,7 +86,7 @@ Page({
         console.log(res)
 
         let goodsInfo = res.result.data[0]
-        goodsInfo.imgList = goodsInfo.images.split(',');
+        goodsInfo.imgList = goodsInfo.images?goodsInfo.images.split(','):[];
         goodsInfo.num = 1;
         this.setData({
           goodsInfo: goodsInfo

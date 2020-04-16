@@ -21,7 +21,7 @@
       <view class="description sub-info">{{goods.descript}}</view>
       <view class="stok sub-info">库存：{{goods.stock}}</view>
       <view class="bottom">
-        <view class="price">{{goods.price}}/{{goods.unit}}</view>
+        <view class="price">{{goods.price}}元/{{goods.unit}}</view>
         <view class="actions">
           <!-- 上下架按钮 -->
           <switch wx:if="{{dealer_id && switch}}" color="#3d6034" data-id="{{goods._id}}" checked="{{goods.status == 1}}" catchchange="switchChange" catchtap="true"/>

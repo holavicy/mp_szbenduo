@@ -200,8 +200,28 @@ Page({
   },
 
   //获取焦点事件
-  bindfocus: function(e){
+  focusEvent: function(e){
     console.log(e);
+    let index = e.currentTarget.dataset.index;
+
+    let categoryList = this.data.categoryList;
+    categoryList[index].needUpdate = true;
+
+    this.setData({
+      categoryList: categoryList
+    })
+  },
+
+  //获取失焦事件
+  blurEvent: function(e){
+    let index = e.currentTarget.dataset.index;
+
+    let categoryList = this.data.categoryList;
+    categoryList[index].needUpdate = false;
+
+    this.setData({
+      categoryList: categoryList
+    })
   },
 
   updateCategory: function(e){

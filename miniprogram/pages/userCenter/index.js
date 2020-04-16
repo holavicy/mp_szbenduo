@@ -54,9 +54,6 @@ Page({
 
     if (app.globalData.openid) {
       this.onGetOpenid();
-      // this.getCateCount();
-      // this.getGoodsCount();
-      // this.getOrderCount();
     }
 
   },
@@ -110,10 +107,12 @@ Page({
                   isAdmin: 2
                 })
               }
-
-              this.getCateCount();
-              this.getGoodsCount();
               this.getOrderCount();
+              if(this.data.isAdmin == 1){
+                this.getCateCount();
+                this.getGoodsCount();
+              }
+              
             }
           })
         }
@@ -130,10 +129,15 @@ Page({
     wx.cloud.callFunction({
       name:'getCategoryList',
       success: (res) => {
-
-        this.setData({
-          cateNum: res.result.data.length
-        })
+        if (res && res.result && res.result.data && res.result.data.length){
+          this.setData({
+            cateNum: res.result.data.length
+          })
+        } else{
+          this.setData({
+            cateNum: 0
+          })
+        }
       }
     })
   },

@@ -118,6 +118,19 @@
 					"id": -1,
 					"name": "满减配置",
 					"pathName": "admin/pages/saleConfig/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "首页配置",
+					"pathName": "admin/pages/indexConfig/index",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的分类",
+					"pathName": "goods/pages/category/index",
 					"scene": null
 				}
 			]

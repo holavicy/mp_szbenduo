@@ -1,0 +1,17 @@
+<!--miniprogram/address/pages/freight/index.wxml-->
+
+<view class="index-config">
+
+  <view class="item-wrapper">
+    <view class="title"> <text>公告栏（搜索框下方）</text></view>
+    <view class="contents">
+      <textarea placeholder="请输入文字" bindinput="inputValue" value="{{adv.contents}}"></textarea>
+    </view>
+  </view>
+
+  <view class="btns">
+    <view class="button reset" bindtap="reset">重置</view>
+    <view class="button submit" bindtap="submit">提交</view>
+  </view>
+  
+</view>

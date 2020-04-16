@@ -20,6 +20,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getAdv();
     this.getList((list) => {
 
       if (list && list.length > 0) {
@@ -87,6 +88,18 @@ Page({
   bindKey:function(e){
     this.setData({
       keyword: e.detail.value
+    })
+  },
+
+//获取广告列表
+  getAdv: function () {
+    wx.cloud.callFunction({
+      name: 'getAdv',
+      success: (res) => {
+        this.setData({
+          adv: res.result.data[0]
+        })
+      }
     })
   }
 })

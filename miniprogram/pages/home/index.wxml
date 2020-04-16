@@ -9,6 +9,10 @@
     
   </view>
 
+  <view class="adv-wrapper" wx:if="{{adv}}">
+    <view class="contents"><text>{{adv.contents}}</text></view>
+  </view>
+
   <view class="goods-wrapper" wx:if="{{list.length>0}}">
     <scroll-view class="left-nav" scroll-y="true">
       <view wx:for="{{list}}" wx:key="index" class="nav-item {{selectedIndex == index?'active':''}}" data-index="{{index}}"     bindtap="setShowList">{{item.name}}</view>

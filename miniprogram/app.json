@@ -54,7 +54,8 @@
       "pages": [
         "pages/cityFreight/index",
         "pages/freight/index",
-        "pages/saleConfig/index"
+        "pages/saleConfig/index",
+        "pages/indexConfig/index"
       ]
     }
   ],

@@ -60,22 +60,24 @@
 }
 
 .goods-wrapper .left-nav{
-  width: 160rpx;
+  width: 170rpx;
   background: #f8f7f7;
   overflow: auto;
   font-size: 28rpx;
   box-sizing: border-box;
   position: relative;
+  padding: 10rpx 0;
 }
 
 .goods-wrapper .right-content{
-  width: 590rpx;
+  width: 580rpx;
 }
 
 .nav-item{
   padding: 30rpx 10rpx;
   font-size: 28rpx;
   line-height: 46rpx;
+  box-sizing: border-box;
 }
 
 .nav-item.active{
@@ -83,13 +85,11 @@
   color: #4fa34f;
   font-weight: bold;
   background: #ffffff;
-
 }
 .right-content{
   background: #ffffff;
   overflow: auto;
   padding: 20rpx 0;
-  box-sizing: border-box;
 }
 .item{
   border-bottom: 1rpx solid #E5E5E5;
@@ -99,4 +99,19 @@
 
 .empty-wrapper{
   width: 100%;
+}
+
+.adv-wrapper{
+  width: 100%;
+  background: #ffffff;
+  font-size: 28rpx;
+  padding: 20rpx;
+  margin: 0 20rpx;
+}
+
+.contents{
+  color: #3d6034;
+  font-weight: bold;
+  width: 710rpx;
+  margin: 0 auto;
 }
