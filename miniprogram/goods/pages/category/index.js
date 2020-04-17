@@ -14,7 +14,8 @@ Page({
   data: {
     selectedId:'',
     categoryName:'',
-    categoryList:[]
+    categoryList:[],
+    showModal:false
   },
 
   /**
@@ -98,8 +99,6 @@ Page({
       }
     }
   })
-
-
   },
 
   //查询分类
@@ -199,34 +198,9 @@ Page({
     }
   },
 
-  //获取焦点事件
-  focusEvent: function(e){
-    console.log(e);
-    let index = e.currentTarget.dataset.index;
-
-    let categoryList = this.data.categoryList;
-    categoryList[index].needUpdate = true;
-
-    this.setData({
-      categoryList: categoryList
-    })
-  },
-
-  //获取失焦事件
-  blurEvent: function(e){
-    let index = e.currentTarget.dataset.index;
-
-    let categoryList = this.data.categoryList;
-    categoryList[index].needUpdate = false;
-
-    this.setData({
-      categoryList: categoryList
-    })
-  },
-
-  updateCategory: function(e){
-    let index = e.currentTarget.dataset.index;
-    let val = e.detail.value.trim();
+  updateCate: function(){
+    let index = this.data.initIndex;
+    let val = this.data.initCate.trim()
     let cateList = this.data.categoryList;
     let id = cateList[index]._id,
       name = val;
@@ -236,12 +210,18 @@ Page({
       name:name
     }
 
+    wx.showLoading({
+      title: '提交中',
+      mask: "true"
+    })
     const db = wx.cloud.database();
     db.collection('category').where({
-      name: name
+      name: name,
+      status:1
     }).get({
       success: (res) => {
         if(res.data.length>0 &&res.data[0]._id != id){
+          wx.hideLoading();
           wx.showToast({
             title: '该分类已存在',
             icon:'none'
@@ -252,11 +232,17 @@ Page({
             name: 'updateCategory',
             data: data,
             success: (res) => {
-              console.log(res);
-
+              wx.hideLoading();
               if (res && res.result && res.result.code == 0) {
+                this.setData({
+                  showModal:false
+                })
                 this.queryCategory();
               }
+            },
+            fail:(err)=>{
+              console.log(err);
+              wx.hideLoading();
             }
           })
         }
@@ -264,31 +250,30 @@ Page({
     })   
   },
 
-  bindKey: function(e){
-    let val = e.detail.value.trim();
-    let index = e.currentTarget.dataset.index;
-    let cateList = this.data.categoryList;
-    cateList[index].name = val;
+  inputVal: function(e){
+    let val = e.detail.value;
     this.setData({
-      categoryList: cateList
+      initCate: val
     })
   },
 
-  bindfocus: function(e){
+  showModal: function(e){
     let index = e.currentTarget.dataset.index;
-    let cateList = this.data.categoryList;
-    cateList[index].needUpdate = true;
+
+    let categoryList = this.data.categoryList;
+
+    let val = categoryList[index].name;
+
     this.setData({
-      categoryList:cateList
+      showModal: true,
+      initCate:val,
+      initIndex:index
     })
   },
 
-    bindblur: function (e) {
-      let index = e.currentTarget.dataset.index;
-      let cateList = this.data.categoryList;
-      cateList[index].needUpdate = false;
-      this.setData({
-        categoryList: cateList
-      })
-    },
+  closeModal: function(){
+    this.setData({
+      showModal:false
+    })
+  }
 })

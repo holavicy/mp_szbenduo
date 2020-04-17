@@ -29,41 +29,6 @@ Page({
     this.getAdv();
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
   inputValue: function(e){
     let value = e.detail.value;
     let adv = this.data.adv;
@@ -87,11 +52,20 @@ Page({
     let adv = this.data.adv;
     adv.contents = adv.contents;
 
+    wx.showLoading({
+      title: '提交中',
+      mask:'true'
+    })
+
     wx.cloud.callFunction({
       name:'updateAdv',
       data: adv,
       success: (res) => {
-        console.log(res)
+        console.log(res);
+        wx.navigateBack();
+      },
+      conmplete:()=>{
+        wx.hideLoading();
       }
     })
   },

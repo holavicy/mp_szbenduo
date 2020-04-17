@@ -12,9 +12,7 @@
   <scroll-view scroll-y="true" class="category-list" catchtouchmove="true">
     <radio-group class="radio-group" bindchange="radioChange">
       <view class="radio-item" wx:for-items="{{categoryList}}" wx:key="name">
-        <input class="text" type="text" maxlength="6" value="{{item.name}}" data-index="{{index}}"
-                bindconfirm="updateCategory" bindfocus="focusEvent" bindblur="blurEvent"></input>
-        <text class="update-btn" bindtap="updateCategory" data-index="{{index}}" wx:if="{{item.needUpdate}}">更新</text>
+      <view class="text" data-index="{{index}}" bindtap="showModal">{{item.name}}</view>
         <radio class="radio"  value="{{foo.stringify(item)}}" checked="{{item._id == selectedId}}" color="#3d6034"></radio>
       </view>
         
@@ -33,3 +31,11 @@
 
 
 </view>
+
+<modal wx:if="{{showModal}}">
+  <view slot="modal-title" class="modal-title"><view>编辑分类</view><view bindtap="closeModal">关闭</view></view>
+  <view slot="modal-content" class="modal-content">
+    <input type="text" auto-focus="true" placeholder="最多输入6个字符" maxlength="6" value="{{initCate}}" bindinput="inputVal"></input>
+    <image src="../../../images/icons/edit.png" bindtap="updateCate"></image> 
+  </view>
+</modal>

@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "empty-wrapper": "../../components/empty/index"
+    "empty-wrapper": "../../components/empty/index",
+    "modal": "../../components/modal/index"
   },
   "navigationBarTitleText":"分类列表"
 }
