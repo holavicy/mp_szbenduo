@@ -33,6 +33,7 @@
 
 textarea{
   padding: 20rpx;
+  width: 100%;
 }
 
 .btns{
