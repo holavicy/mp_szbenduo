@@ -136,16 +136,25 @@ Page({
               id: id
             },
             success: (res) => {
-              console.log(res);
 
-              wx, wx.hideLoading();
-              wx.showToast({
-                title: '订单已取消',
+              //把订单里面的商品逐一加上购物车里面的数量
+              let goodsList = this.data.order.goodsList;
+              let updatePromise = [];
+              goodsList.map((goods) => {
+                let promise = this.updateGoodsStock(goods);
+                updatePromise.push(promise)
               })
 
-              setTimeout(function(){
-                wx.navigateBack({})
-              },1000)
+              Promise.all(updatePromise).then(result => {
+                wx, wx.hideLoading();
+                wx.showToast({
+                  title: '订单已取消',
+                })
+  
+                setTimeout(function(){
+                  wx.navigateBack({})
+                },1000)
+              })
             },
 
             fail: (err) => {
@@ -171,7 +180,6 @@ Page({
         confirmColor:'#3d6034',
         success: (res) => {
           if(res.confirm){
-            console.log(2);
 
             wx.showLoading({
               title: '',
@@ -278,14 +286,13 @@ Page({
   },
 
   confirmOrder: function(){
-    console.log(1)
+
     wx.showModal({
       title: '确认收货',
       content: '确定已收到包裹？',
       confirmColor: '#3d6034',
       success: (res) => {
         if (res.confirm) {
-          console.log(2);
 
           wx.showLoading({
             title: '',
@@ -301,7 +308,6 @@ Page({
               wx.navigateBack({
 
               })
-              console.log(res)
             },
             complete: () => {
               wx.hideLoading()
@@ -310,5 +316,28 @@ Page({
         }
       }
     })
-  }
+  } ,
+
+    //更新商品库存
+    updateGoodsStock: function (goods) {
+      const db = wx.cloud.database();
+      const _ = db.command
+      var p = new Promise((resolve, reject) => {
+  
+        db.collection('goods').doc(goods.goods_id).update({
+          data: {
+            stock: _.inc(goods.num)
+          },
+          success: (res) => {
+            resolve(res)
+          },
+          fail: (err) => {
+            console.log(err);
+            this.payErr();
+          }
+  
+        })
+      })
+      return p
+    }
 })
