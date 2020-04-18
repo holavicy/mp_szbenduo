@@ -61,6 +61,6 @@
 
   <view class="bottom">
     <view class="info"><view>应支付</view><view class="price">¥{{totalPrice}}</view></view>
-    <view class="button" bindtap="toOrderPay">去支付</view>
+    <view class="button {{canPay?'':'disabled'}}" bindtap="toOrderPay">去支付</view>
   </view>
 </view>

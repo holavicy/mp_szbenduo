@@ -150,6 +150,10 @@
   text-align: center;
 }
 
+.confirm-order .bottom .button.disabled{
+  background: #E5E5E5;
+}
+
 .sub-info{
   font-size: 24rpx;
   color: #888888;

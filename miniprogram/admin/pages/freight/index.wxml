@@ -3,14 +3,14 @@
 <view class="freight">
   <view class="city rules">
     <view class="title"> <text>免邮规则：</text> <text class="btn" bindtap="newRule">新增</text></view>
-    <view class="rule">
+    <!-- <view class="rule">
       <text>全国默认免邮需满</text>
       <input value="{{defaultRule.amount}}" bindinput="defaultAmount"></input>
       <text>元</text>
       <image src="../../../images/icons/xuanze.png" 
         data-index="{{index}}"
         bindtap="setDefaultAmount"></image>
-    </view>
+    </view> -->
 
     <view class="rule cus-rule" wx:for="{{rules}}" wx:key = "*this" wx:if="{{!item.is_default}}">
 

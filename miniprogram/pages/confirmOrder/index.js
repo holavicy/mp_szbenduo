@@ -118,6 +118,14 @@ Page({
       return
     }
 
+    if(!this.data.canPay){
+      wx.showToast({
+        icon:'none',
+        duration:3000,
+        title:'您选择的收货地址不在配送范围内，当前仅支持江浙沪地区~'
+      })
+      return
+    }
     wx.showLoading({
       title: '订单提交中',
     })
@@ -454,12 +462,14 @@ Page({
           success: (res) => {
             if (res && res.result && res.result.data && res.result.data.length > 0) {
               that.setData({
+                canPay:true,
                 freeBaseAmount: res.result.data[0].amount
               }, () => {
                 reslove()
               })
             } else {
               that.setData({
+                canPay:false,
                 freeBaseAmount: that.data.defaultAmount
               }, ()=>{
                 reslove()
