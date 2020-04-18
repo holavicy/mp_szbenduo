@@ -97,7 +97,17 @@ Page({
     })
   },
 
-  bindscrolltolower: function(){
-    console.log(21)
+  showMore: function(e){
+    let index = e.currentTarget.dataset.index;
+
+    let list = this.data.list;
+
+    let orderItem = list[index];
+
+    list[index].down = !list[index].down;
+
+    this.setData({
+      list: list
+    })
   }
 })

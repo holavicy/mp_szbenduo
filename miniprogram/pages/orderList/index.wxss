@@ -50,6 +50,15 @@
   box-shadow: #E5E5E5 0 0 10rpx;
 }
 
+.goods-list-wrapper.limit{
+  max-height: 320rpx;
+  overflow: hidden;
+}
+
+.goods-list-wrapper.auto{
+  max-height: none;
+}
+
 .order-item .title{
   height: 80rpx;
   line-height: 80rpx;
@@ -120,4 +129,12 @@
   max-height: 72rpx;
   line-height: 36rpx;
   overflow: hidden;
+}
+
+.show-more{
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #EE9922;
+  text-align: center;
 }
