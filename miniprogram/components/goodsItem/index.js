@@ -90,31 +90,6 @@ Component({
           console.log(err)
         }
       })
-      // db.collection('goods').doc(id).update({
-      //   data: {
-      //     status: status
-      //   },
-      //   success: res => {
-
-      //     if(res.stats.update>0){
-      //       wx.showToast({
-      //         title: status == 1 ? '上架成功' : '下架成功',
-      //       })
-      //       this.triggerEvent("switchChange")
-      //     } else {
-      //       wx.showToast({
-      //         title: status == 1 ? '上架失败' : '下架失败',
-      //         icon: 'none'
-      //       })
-      //     }
-      //     console.log(res)
-    
-      //   },
-      //   fail: err => {
-      //     icon: 'none',
-      //     console.error('[数据库] [更新记录] 失败：', err)
-      //   }
-      // })
     },
 
     //加入购物车
@@ -136,6 +111,9 @@ Component({
 
           if(res && res.result){
             if (res.result.result && res.result.result.code == 0) {
+              this.getCartNum().then((res) => {
+                console.log(res)
+              })
               wx.showToast({
                 title: '加入购物车成功',
               })
@@ -193,7 +171,6 @@ Component({
           num--;
           this.updateNumRes(num, goodsId);
         } else {
-          console.log(cartId);
           this.deleteCartRes(cartId);
         }
       } else {
@@ -258,6 +235,9 @@ Component({
               },
               success: res => {
                 wx.hideLoading();
+                this.getCartNum().then((res) => {
+                  console.log(res)
+                })
                 that.triggerEvent("deleteSuccess")
                 wx.showToast({
                   title: '删除成功',
@@ -289,8 +269,10 @@ Component({
           goodsId: goodsId
         },
         success: res => {
-          console.log(res)
           wx.hideLoading();
+          this.getCartNum().then((res) => {
+            console.log(res)
+          })
           that.triggerEvent("updateSuccess")
         },
         fail: err => {
@@ -342,6 +324,27 @@ Component({
           }
         }
       })
+    },
+
+    //获取购物车数量
+    getCartNum: function () {
+      return new Promise((resolve, reject) => {
+        wx.cloud.callFunction({
+          name: 'getValidCartList',
+          success: (res) => {
+            let num = String(res.result.list[0].totalNum) 
+            let data ={
+              num: num
+            }
+            wx.setTabBarBadge({//tabbar右上角添加文本
+              index: 1, ////tabbar下标
+              text: data.num //显示的内容
+            })
+            resolve(data)
+          }
+        })
+      })
+      
     }
   }
 })

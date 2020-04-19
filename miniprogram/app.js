@@ -12,7 +12,9 @@ App({
       })
     }
 
-    this.globalData = {};
+    this.globalData = {
+      cartNum:0
+    };
 
     wx.getSetting({
       success: res => {
@@ -31,7 +33,19 @@ App({
   },
 
   onShow: function(){
-
+    wx.cloud.callFunction({
+      name: 'getValidCartList',
+      success: (res) => {
+        let num = String(res.result.list[0].totalNum)
+        let data = {
+          num: num
+        }
+        wx.setTabBarBadge({//tabbar右上角添加文本
+          index: 1, ////tabbar下标
+          text: data.num //显示的内容
+        })
+      }
+    })
   },
 
   getUserInfo: function(cbk){
@@ -67,4 +81,14 @@ App({
       }
     })
   },
+
+  //获取购物车数量
+  getCartNum: function(){
+    wx.cloud.callFunction({
+      name:'getValidCartList',
+      success: (res) => {
+        console.log(res)
+      }
+    })
+  }
 })
