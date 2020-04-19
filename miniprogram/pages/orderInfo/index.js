@@ -52,7 +52,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getList();
 
     wx.cloud.callFunction({
       name: 'checkAdmin',
@@ -67,21 +66,27 @@ Page({
             isAdmin: 2
           })
         }
+
+        this.getList();
       }
     })
   },
 
   getList: function () {
     let id = this.data.id;
+    let isAdmin = this.data.isAdmin == 1?true:false;
+    console.log(isAdmin)
     wx.showLoading({
       title: '加载中',
     })
     wx.cloud.callFunction({
       name: 'getOrderList',
       data: {
-        id: id
+        id: id,
+        isAdmin: isAdmin
       },
       success: (res) => {
+        console.log(res)
 
         if (res && res.result && res.result.list) {
           this.setData({
