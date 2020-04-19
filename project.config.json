@@ -88,6 +88,13 @@
 				},
 				{
 					"id": -1,
+					"name": "地址运费配置",
+					"pathName": "address/pages/freight/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
 					"name": "购物车",
 					"pathName": "pages/cart/index",
 					"query": "",
@@ -118,21 +125,13 @@
 					"id": -1,
 					"name": "首页配置",
 					"pathName": "admin/pages/indexConfig/index",
-					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "我的分类",
-					"pathName": "goods/pages/category/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "订单列表",
-					"pathName": "pages/orderList/index",
-					"query": "",
+					"name": "商品详情",
+					"pathName": "pages/goodsInfo/index",
+					"query": "id=RiP33JNT2EGBcb5XISTlRPodDQ3Gkmxr0vSncuSTPiE24xMD",
 					"scene": null
 				}
 			]
