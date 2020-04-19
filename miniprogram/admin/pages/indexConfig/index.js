@@ -61,7 +61,6 @@ Page({
       name:'updateAdv',
       data: adv,
       success: (res) => {
-        console.log(res);
         wx.navigateBack();
       },
       conmplete:()=>{
@@ -77,6 +76,9 @@ Page({
         this.setData({
           adv: res.result.data[0]
         })
+      },
+      fail: (err) => {
+        console.log(err)
       }
     })
   }

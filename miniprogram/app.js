@@ -19,7 +19,6 @@ App({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          console.log('scope.userInfo')
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
@@ -36,14 +35,17 @@ App({
     wx.cloud.callFunction({
       name: 'getValidCartList',
       success: (res) => {
-        let num = String(res.result.list[0].totalNum)
-        let data = {
-          num: num
+
+        if (res && res.result && res.result.list.length>0){
+          let num = String(res.result.list[0].totalNum)
+          let data = {
+            num: num
+          }
+          wx.setTabBarBadge({//tabbar右上角添加文本
+            index: 1, ////tabbar下标
+            text: data.num //显示的内容
+          })
         }
-        wx.setTabBarBadge({//tabbar右上角添加文本
-          index: 1, ////tabbar下标
-          text: data.num //显示的内容
-        })
       }
     })
   },
@@ -82,12 +84,24 @@ App({
     })
   },
 
-  //获取购物车数量
   getCartNum: function(){
     wx.cloud.callFunction({
-      name:'getValidCartList',
+      name: 'getValidCartList',
       success: (res) => {
-        console.log(res)
+        if (res && res.result && res.result.list.length > 0) {
+          let num = String(res.result.list[0].totalNum)
+          let data = {
+            num: num
+          }
+          wx.setTabBarBadge({//tabbar右上角添加文本
+            index: 1, //tabbar下标
+            text: data.num //显示的内容
+          })
+        } else {
+          wx.removeTabBarBadge({//tabbar右上角添加文本
+            index: 1
+          })
+        }
       }
     })
   }

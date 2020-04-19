@@ -235,7 +235,7 @@ Component({
               },
               success: res => {
                 wx.hideLoading();
-                this.getCartNum().then((res) => {
+                that.getCartNum().then((res) => {
                   console.log(res)
                 })
                 that.triggerEvent("deleteSuccess")
@@ -332,15 +332,22 @@ Component({
         wx.cloud.callFunction({
           name: 'getValidCartList',
           success: (res) => {
-            let num = String(res.result.list[0].totalNum) 
-            let data ={
-              num: num
+            if (res && res.result && res.result.list.length>0) {
+              let num = String(res.result.list[0].totalNum)
+              let data = {
+                num: num
+              }
+              wx.setTabBarBadge({//tabbar右上角添加文本
+                index: 1, ////tabbar下标
+                text: data.num //显示的内容
+              })
+              resolve(data)
+            } else {
+              wx.removeTabBarBadge({//tabbar右上角添加文本
+                index: 1
+              })
             }
-            wx.setTabBarBadge({//tabbar右上角添加文本
-              index: 1, ////tabbar下标
-              text: data.num //显示的内容
-            })
-            resolve(data)
+            
           }
         })
       })

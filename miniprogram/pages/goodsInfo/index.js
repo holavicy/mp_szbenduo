@@ -83,7 +83,6 @@ Page({
         "id": id
       },
       success: (res)=>{
-        console.log(res)
 
         let goodsInfo = res.result.data[0]
         goodsInfo.imgList = goodsInfo.images?goodsInfo.images.split(','):[];
@@ -91,7 +90,6 @@ Page({
         this.setData({
           goodsInfo: goodsInfo
         })
-        console.log(res)
       },
 
       fail: (err) => {
@@ -145,13 +143,10 @@ Page({
       },
       success: (res) => {
         wx.hideLoading()
-        console.log(res);
-
         if (res && res.result && res.result.result && res.result.result.code == 0){
           wx.showToast({
             title: '加入购物车成功',
           })
-
           this.getList(this.data.id);
         } else if (res && res.result && res.result.code == -1) {
           wx.showToast({

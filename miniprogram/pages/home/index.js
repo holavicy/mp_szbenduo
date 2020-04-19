@@ -1,4 +1,5 @@
 // miniprogram/pages/home/index.js
+var app = getApp();
 Page({
 
   /**
@@ -29,6 +30,8 @@ Page({
         })
       }
     });
+
+    app.getCartNum();
   },
 
   /**
