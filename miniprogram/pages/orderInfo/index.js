@@ -1,4 +1,5 @@
 // miniprogram/pages/orderInfo/index.js
+var app = getApp();
 Page({
 
   /**
@@ -151,7 +152,7 @@ Page({
               })
 
               Promise.all(updatePromise).then(result => {
-                wx, wx.hideLoading();
+                wx.hideLoading();
                 wx.showToast({
                   title: '订单已取消',
                 })
@@ -325,22 +326,42 @@ Page({
 
     //更新商品库存
     updateGoodsStock: function (goods) {
-      const db = wx.cloud.database();
+      const db = wx.cloud.database({
+        env: app.globalData.env
+      });
       const _ = db.command
       var p = new Promise((resolve, reject) => {
   
-        db.collection('goods').doc(goods.goods_id).update({
+        // db.collection('goods').doc(goods.goods_id).update({
+        //   data: {
+        //     stock: _.inc(goods.num)
+        //   },
+        //   success: (res) => {
+        //     resolve(res)
+        //   },
+        //   fail: (err) => {
+        //     console.log(err);
+        //     this.payErr();
+        //   }
+  
+        // })
+        let incStock = goods.num
+
+        wx.cloud.callFunction({
+          name: 'updateGoodsInfo',
           data: {
-            stock: _.inc(goods.num)
+            id: goods.goods_id,
+            item:{},
+            incStock: incStock
           },
           success: (res) => {
+            console.log(res);
             resolve(res)
           },
           fail: (err) => {
             console.log(err);
-            this.payErr();
+            reject()
           }
-  
         })
       })
       return p

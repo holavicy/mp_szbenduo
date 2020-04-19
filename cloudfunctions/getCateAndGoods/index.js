@@ -32,7 +32,9 @@ exports.main = async (event, context) => {
             create_time: - 1
           })
           .done(),
-      })
+      }).sort({
+        create_time: 1
+      }).limit(1000)
       .end()
       .then(res => { return res })
       .catch(err => console.error(err))

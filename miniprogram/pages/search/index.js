@@ -1,4 +1,5 @@
 // miniprogram/pages/search/index.js
+var app = getApp();
 Page({
 
   /**
@@ -71,7 +72,9 @@ Page({
   getList: function(){
     wx.showLoading();
     let keyword = this.data.keyword;
-       const db = wx.cloud.database()
+       const db = wx.cloud.database({
+         env: app.globalData.env
+       })
     // 查询当前用户所有的 counters
     db.collection('goods').where({
       status:1,

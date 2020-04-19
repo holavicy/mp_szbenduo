@@ -1,4 +1,5 @@
 // miniprogram/goods/pages/addGoods/index.js
+var app =getApp();
 Page({
 
   /**
@@ -225,8 +226,11 @@ Page({
     for (i = 0; i < length; i++) {
 
       if (/^cloud/.test(this.data.picturesList[i])){
+        console.log(true)
+        console.log(this.data.picturesList[i])
         pictureCloudList.push(this.data.picturesList[i])
       } else {
+        console.log(false)
         let promise = this.uploadFileToCloud(this.data.picturesList[i]);
         promiseAll.push(promise);
       }
@@ -236,6 +240,7 @@ Page({
     
 
     Promise.all(promiseAll).then((result) => {
+      console.log(result);
       result.map(res => {
         pictureCloudList.push(res.fileID)
       });
@@ -257,7 +262,9 @@ Page({
 
   //存储至数据库
   submitRes: function(data){
-    const db = wx.cloud.database();
+    const db = wx.cloud.database({
+      env: app.globalData.env
+    });
     const _ = db.command
     data.image = this.data.pictureCloudList[0];
     data.images = this.data.pictureCloudList.join(',');

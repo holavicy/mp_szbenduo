@@ -51,7 +51,7 @@
    
     <view class="pictures-wrapper">
       <view class="picture" wx:for="{{picturesList}}" wx:key="index"><image src="{{item}}"></image></view>
-      <view class="picture add" bindtap="addPictures" wx:if="{{picturesList.length<4}}">
+      <view class="picture add" bindtap="addPictures">
       <image src="../../../images/icons/add-picture.png"></image> </view>
     </view>
 

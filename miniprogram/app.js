@@ -6,14 +6,16 @@ App({
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
       wx.cloud.init({
-        env:'benduo-zv240',
-        // env: 'online-n0oiv',
+        // env:'benduo-zv240',
+        env: 'online-n0oiv',
         traceUser: true,
       })
     }
 
     this.globalData = {
-      cartNum:0
+      cartNum:0,
+      // env: 'benduo-zv240',
+      env: 'online-n0oiv'
     };
 
     wx.getSetting({
@@ -32,22 +34,7 @@ App({
   },
 
   onShow: function(){
-    wx.cloud.callFunction({
-      name: 'getValidCartList',
-      success: (res) => {
-
-        if (res && res.result && res.result.list.length>0){
-          let num = String(res.result.list[0].totalNum)
-          let data = {
-            num: num
-          }
-          wx.setTabBarBadge({//tabbar右上角添加文本
-            index: 1, ////tabbar下标
-            text: data.num //显示的内容
-          })
-        }
-      }
-    })
+    this.getCartNum()
   },
 
   getUserInfo: function(cbk){
@@ -85,6 +72,16 @@ App({
   },
 
   getCartNum: function(){
+    console.log(this.globalData)
+
+    if (!this.globalData.openid){
+      console.log(1);
+      wx.removeTabBarBadge({//tabbar右上角添加文本
+        index: 1
+      })
+      return
+    }
+    console.log(2)
     wx.cloud.callFunction({
       name: 'getValidCartList',
       success: (res) => {

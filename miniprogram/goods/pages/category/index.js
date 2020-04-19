@@ -6,6 +6,8 @@
   若从别的页面进入此页面,type依次定义
 */
 
+var app = getApp();
+
 Page({
 
   /**
@@ -57,7 +59,9 @@ Page({
       return
     }
 
-  const db = wx.cloud.database();
+  const db = wx.cloud.database({
+    env: app.globalData.env
+  });
     db.collection('category').where({
       name: categoryName,
       status:1
@@ -214,7 +218,9 @@ Page({
       title: '提交中',
       mask: "true"
     })
-    const db = wx.cloud.database();
+    const db = wx.cloud.database({
+      env: app.globalData.env
+    });
     db.collection('category').where({
       name: name,
       status:1

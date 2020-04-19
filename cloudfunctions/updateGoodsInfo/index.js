@@ -13,6 +13,10 @@ const _ = db.command;
 exports.main = async (event, context) => {
   event.item.update_time = db.serverDate();
 
+  if (event.incStock){
+    event.item.stock = _.inc(event.incStock)
+  }
+
   delete event.item._id;
   return await db.collection('goods').where({
     _id: event.id

@@ -150,7 +150,9 @@ Page({
       onSaleGoodsNum:0,
       offSaleGoodsNum:0
     })
-    const db = wx.cloud.database();
+    const db = wx.cloud.database({
+      env: app.globalData.env
+    });
     const _ = db.command;
     const $ = db.command.aggregate
     // 查询当前用户所有的 counters
@@ -234,23 +236,6 @@ Page({
         })
       }
     })
-  },
-
-  getOrderCount1: function(){
-    const db = wx.cloud.database();
-    const $ = db.command.aggregate;
-    db.collection('order_list').aggregate()
-      .group({
-        _id: '$status',
-        num: $.sum(1)
-      })
-
-
-      .end().then((res) => {
-        console.log(res);
-
-
-      })
   },
 
   contactUs: function(){

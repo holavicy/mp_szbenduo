@@ -1,6 +1,7 @@
 // miniprogram/pages/confirmOrder/index.js
 
 import { formatDate } from '../../utils/common.js'
+var app = getApp();
 Page({
 
   /**
@@ -170,7 +171,9 @@ Page({
 
               if (res && res.result && res.result._id) {//将商品插入order_goods表
                 var order_id = res.result._id;
-                const db = wx.cloud.database();
+                const db = wx.cloud.database({
+                  env: app.globalData.env
+                });
 
                 let promiseList = [];
                 goodsList.map(goods => {
@@ -180,6 +183,8 @@ Page({
 
                 Promise.all(promiseList).then((result) => {
                   let success = true
+                  console.log('11111111111111')
+                  console.log(result)
                   result.map(res => {
                     if(success){
                       if (res.result.code != 0) {
@@ -198,6 +203,7 @@ Page({
 
                     Promise.all(updatePromise).then(result => {
                       let upSuccess = true
+                      console.log(result)
                       result.map(res => {
                         if (upSuccess) {
                           if (res.errMsg.indexOf('ok') < 0) {
@@ -325,21 +331,44 @@ Page({
 
   //更新商品库存
   updateGoodsStock: function (goods) {
-    const db = wx.cloud.database();
+    console.log(app.globalData.env);
+    console.log(goods.goods_id)
+    const db = wx.cloud.database({
+      env: app.globalData.env
+    });
     var p = new Promise((resolve, reject) => {
 
-      db.collection('goods').doc(goods.goods_id).update({
-        data: {
-          stock: goods.stock - goods.num
+      // db.collection('goods').doc(goods.goods_id).update({
+      //   data: {
+      //     stock: goods.stock - goods.num
+      //   },
+      //   success: (res) => {
+      //     resolve(res)
+      //   },
+      //   fail: (err) => {
+      //     console.log(err);
+      //     this.payErr();
+      //   }
+
+      // })
+      let item = {
+        stock: goods.stock - goods.num
+      }
+
+      wx.cloud.callFunction({
+        name:'updateGoodsInfo',
+        data:{
+          id: goods.goods_id,
+          item: item
         },
         success: (res) => {
+          console.log(res);
           resolve(res)
         },
         fail: (err) => {
           console.log(err);
-          this.payErr();
+          reject()
         }
-
       })
     })
     return p

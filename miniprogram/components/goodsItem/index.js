@@ -52,7 +52,8 @@ Component({
     setTimeout(()=>{
       let app = getApp();
       this.setData({
-        dealer_id: app.globalData.openid
+        dealer_id: app.globalData.openid,
+        env: app.globalData.env
       })
     },1000)
 
@@ -66,7 +67,9 @@ Component({
     switchChange: function (e) {
       let id = e.currentTarget.dataset.id;
 
-      const db = wx.cloud.database()
+      const db = wx.cloud.database({
+        env: this.data.env
+      })
       const status = e.detail.value?1:3;
       console.log(status)
 
@@ -94,7 +97,9 @@ Component({
 
     //加入购物车
     toCart:function(e){
-      const db = wx.cloud.database();
+      const db = wx.cloud.database({
+        env: this.data.env
+      });
       wx.showLoading({
         title: '',
         mask: true
