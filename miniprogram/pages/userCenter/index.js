@@ -113,6 +113,7 @@ Page({
               if(this.data.isAdmin == 1){
                 this.getCateCount();
                 this.getGoodsCount();
+                app.getCartNum();
               }
               
             }

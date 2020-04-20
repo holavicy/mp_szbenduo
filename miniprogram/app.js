@@ -34,7 +34,10 @@ App({
   },
 
   onShow: function(){
-    this.getCartNum()
+    setTimeout(() => {
+      this.getCartNum()
+    }, 1000);
+    
   },
 
   getUserInfo: function(cbk){
